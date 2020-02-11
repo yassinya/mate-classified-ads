@@ -1,0 +1,88 @@
+@import "~bootstrap/scss/bootstrap";
+@import '~dropzone/dist/min/dropzone.min';
+
+body{
+    background: #f3f3f3;
+    /* background: #eee; */
+    height: 566px;
+}
+
+.dropzone{
+    border: #007bff 1px solid;
+    margin: 16px;
+}
+
+.dropzone .dz-preview{
+    margin: 6px;
+}
+
+.breadcrumb-wrapper{
+    background: #fff;
+}
+
+.nav-link{
+    padding: 4px 8px;
+    font-size: 13px;
+    margin-right: 3px;
+    min-width: 60px;
+}
+.header, .category-wrapper{
+    background: #fff;
+    padding: 10px 5px;
+}
+.header{
+    padding: 10px 5px;
+}
+.header span{
+    font-size: 12px;
+}
+.filters p{
+    padding: 0;
+    margin: 0;
+}
+.category-wrapper{
+    background: #fff;
+    padding: 0;
+    margin-top: 3rem;
+}
+.category-wrapper .category-header{
+    /* background: #e91e63; */
+    color: #fff;
+    padding: 6px 15px;
+}
+.category-wrapper .category-header h6{
+    margin: 0;
+}
+.category-posts{
+    padding: 6px 15px;
+}
+.post{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 5px;
+}
+.post .badge{
+    font-size: 11px;
+    min-width: 20px;
+}
+.post .post-title{
+    font-size: 14px;
+}
+.post .post-content{
+    font-size: 14px;
+    margin: 0;
+}
+.post .post-content .post-images img{
+    width: 50px;
+    height: 50px;
+    margin-right: 2px;
+}
+
+.post .post-content .fas{
+    font-size: 10px;
+}
+
+footer{
+    background-color: #fff;
+}
