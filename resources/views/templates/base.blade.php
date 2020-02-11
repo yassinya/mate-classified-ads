@@ -16,15 +16,13 @@
 
 <body>
     @include('partials.header')
-    <div class="breadcrumb-wrapper">
             <div class="container">
-                <div class="row">
+                <div class="row breadcrumb">
                     <div class="col-12">
                         @yield('breadcrumbs')
                     </div>
                 </div>
             </div>
-        </div>
     <section class="container mt-5">
         <div class="row filters">
             <div class="col-md-8 col-sm-12 align-self-center">

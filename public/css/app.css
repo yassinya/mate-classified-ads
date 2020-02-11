@@ -11753,8 +11753,8 @@ body {
   margin: 6px;
 }
 
-.breadcrumb-wrapper {
-  background: #fff;
+.breadcrumb {
+  background: #fff0;
 }
 
 .nav-link {

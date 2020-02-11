@@ -1,4 +1,5 @@
 @extends('templates.base')
+@section('breadcrumbs', Breadcrumbs::render('home') )
 
 @section('content')
 <section class="container">
