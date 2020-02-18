@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'PageController@showHomePage')->name('home');
+Route::post('/register', 'RegisterController@register')->name('register.post');

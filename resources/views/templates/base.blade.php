@@ -51,6 +51,7 @@
     </section>
     @yield('content')
     @include('partials.ad-creation-modal')
+    @include('partials.register-modal')
     @include('partials.footer')
 
     <script src="{{ mix('js/app.js') }}"></script>

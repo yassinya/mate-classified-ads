@@ -7,6 +7,12 @@ body{
     height: 566px;
 }
 
+a {
+    &:hover, &.active {
+        text-decoration: none;
+    }
+}
+
 .dropzone{
     border: #007bff 1px solid;
     margin: 16px;

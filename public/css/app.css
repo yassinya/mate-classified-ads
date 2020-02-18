@@ -11744,6 +11744,11 @@ body {
   height: 566px;
 }
 
+a:hover,
+a.active {
+  text-decoration: none;
+}
+
 .dropzone {
   border: #007bff 1px solid;
   margin: 16px;
