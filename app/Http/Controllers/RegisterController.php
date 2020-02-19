@@ -13,7 +13,13 @@ class RegisterController extends Controller
     public function register(Request $req)
     {
         // set validation rules for user inputs
-        $this->validator($req->all());
+        $validator = $this->validator($req->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
 
         // create the user
         $user = $this->createUser($req->all());
