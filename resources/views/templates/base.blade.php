@@ -51,7 +51,10 @@
     </section>
     @yield('content')
     @include('partials.ad-creation-modal')
-    @include('partials.register-modal')
+    @if(!auth()->check())
+        @include('partials.register-modal')
+        @include('partials.login-modal')
+    @endif
     @include('partials.footer')
 
     <script src="{{ mix('js/app.js') }}"></script>

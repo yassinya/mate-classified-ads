@@ -13,3 +13,4 @@
 
 Route::get('/', 'PageController@showHomePage')->name('home');
 Route::post('/register', 'RegisterController@register')->name('register.post');
+Route::post('/login', 'AuthenticationController@login')->name('login.post');

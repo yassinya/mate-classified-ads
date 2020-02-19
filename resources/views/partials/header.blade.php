@@ -75,7 +75,7 @@
                     </div>
                 </div>
             @else                
-                <p class="d-inline"> | <a href="#" >login</a> or <a href="#" data-toggle="modal" data-target="#register-modal">Register</a></p>
+                <p class="d-inline"> | <a href="#" data-toggle="modal" data-target="#login-modal">login</a> or <a href="#" data-toggle="modal" data-target="#register-modal">Register</a></p>
             @endif
         </div>
     </div>
