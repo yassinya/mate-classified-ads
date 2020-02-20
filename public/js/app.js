@@ -38599,8 +38599,18 @@ var dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_0___default.a("#dropzone", 
   url: "/"
 });
 $(document).ready(function () {
-  console.log("ready!");
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
   $('.open-it').modal('show');
+  $('#logout').on('click', function () {
+    console.log(688);
+    $.post("/logout", {
+      _token: CSRF_TOKEN
+    }).done(function () {
+      location.reload();
+    }).fail(function () {
+      location.reload();
+    });
+  });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

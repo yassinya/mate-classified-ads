@@ -46,4 +46,12 @@ class AuthenticationController extends Controller
     protected function logUserIn(array $credentials){
         return Auth::guard('web')->attempt($credentials);
     }
+
+    public function logout(Request $req)
+    {
+        Auth::logout();
+
+        $req->session()->invalidate();
+        return "logged out";
+    }
 }
