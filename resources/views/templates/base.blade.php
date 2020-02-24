@@ -33,15 +33,19 @@
                     <div class="form-group">
                         <label for="category-filter" class="mr-1">Catrgories </label>
                         <select id="category-filter" class="form-control">
-                            <option value="-">All categories</option>
-                            <optgroup label="Electronics">
-                                <option value="volvo">Samsungs Phones</option>
-                                <option value="saab">Iphones</option>
-                            </optgroup>
-                            <optgroup label="German Cars">
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
-                            </optgroup>
+                            @foreach ($categories as $mainCategory)
+                                @if (count($mainCategory->children) > 0)
+                                    @if (count($mainCategory->children) > 0)
+                                        <optgroup label="{{ $mainCategory->name }}">
+                                            @foreach ($mainCategory->children as $subCategory)
+                                                <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                                            @endforeach                                        
+                                        </optgroup>
+                                    @endif 
+                                @else
+                                    <option value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
+                                @endif    
+                            @endforeach 
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
