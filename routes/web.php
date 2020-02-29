@@ -11,7 +11,23 @@
 |
 */
 
+// these routes can be accessed by anyone
 Route::get('/', 'PageController@showHomePage')->name('home');
-Route::post('/register', 'RegisterController@register')->name('register.post');
-Route::post('/login', 'AuthenticationController@login')->name('login.post');
-Route::post('/logout', 'AuthenticationController@logout')->name('logout.post');
+// ads
+Route::post('/create-ad', 'AdController@postAd')->name('ads.create.post');
+Route::get('/ads/{slug}', 'AdController@showSingleAd')->name('ads.show.single');
+
+
+// Only non logged in users can access below routes
+Route::middleware(['guest'])->group( function ()
+{
+    Route::post('/register', 'RegisterController@register')->name('register.post');
+    Route::post('/login', 'AuthenticationController@login')->name('login.post');
+});
+
+// Only logged in users can access below routes
+Route::middleware(['auth'])->group( function ()
+{
+    Route::post('/logout', 'AuthenticationController@logout')->name('logout.post');
+});
+

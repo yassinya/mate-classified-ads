@@ -1,9 +1,13 @@
 <div class="post">
-    <h6 class="post-title"><strong>Navojni svedri m36 hss</strong></h6>
+    <a href="{{ route('ads.show.single', ['slug' => $ad->slug]) }}"><h6 class="post-title"><strong>{{ $ad->title }}</strong></h6></a>
         <p class="post-content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium excepturi accusantium dicta mollitia minus reiciendis repudiandae earum sunt ab, iure vero nihil...
+                {{ $ad->description }}
             <br>
-            <i class="fas fa-phone"></i> 051 313 605
+            <i class="fas fa-envelope"></i> {{ $ad->email }}
+            <br>  
+            @if ($ad->phone_number)
+                <i class="fas fa-phone"></i> {{ $ad->phone_number }}              
+            @endif
         </p>
     <span class="badge badge-info">E </span> <span class="badge badge-danger">TODAY</span>
 </div>

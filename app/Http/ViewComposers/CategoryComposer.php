@@ -7,7 +7,7 @@ use Illuminate\View\View;
 
 class CategoryComposer
 {
-    public $category = [];
+    public $categories = [];
 
     /**
      * Create a movie composer.
@@ -16,7 +16,9 @@ class CategoryComposer
      */
     public function __construct()
     {
-        $this->categories = Category::all(); 
+        $this->categories = Category::whereNull('parent_id')
+                                    ->with('children', 'ads')
+                                    ->get();
     }
 
     /**
