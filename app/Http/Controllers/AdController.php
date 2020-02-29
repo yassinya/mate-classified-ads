@@ -39,7 +39,7 @@ class AdController extends Controller
         return Validator::make($data, [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'category_id' => ['required'],
+            'category_id' => ['required', 'integer'],
             'email' => ['required', 'string', 'email'],
         ]);
     }
