@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->integer('parent_id')->nullable();
+            $table->string('color_hex')->nullable();
             $table->timestamps();
         });
     }

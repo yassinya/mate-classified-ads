@@ -8,7 +8,7 @@
                 @if($mainCategory->children->count() > 0 || $mainCategory->ads->count() > 0)
                     <div class="col-md-3">
                         <div class="category-wrapper">
-                            <div class="category-header" style="background: #43a047">
+                            <div class="category-header" style="background: {{ $mainCategory->color_hex }}">
                                 <h6>{{ $mainCategory->name }}</h6>
                             </div>
                             <div class="category-posts">
