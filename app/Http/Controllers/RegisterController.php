@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ad;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -23,6 +24,8 @@ class RegisterController extends Controller
 
         // create the user
         $user = $this->createUser($req->all());
+        // find & associate previously posted ads as guest by this user
+        $this->linkUserToAds($user);
 
         // dispatch event to send verification email etc
         // TODO
@@ -52,4 +55,20 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    protected function linkUserToAds(User $user){
+
+        // get ads which have this user's email AND haven't been assigned to a user yet
+        $userAds = Ad::whereEmail($user->email)->whereNull('user_id')->get();
+
+        if(! $userAds){
+            return;
+        }
+
+        foreach ($userAds as $ad) {
+            $ad->user()->associate($user);
+            $ad->save();
+        }
+    }
+
 }
