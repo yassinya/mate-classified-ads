@@ -22,7 +22,7 @@ class CreateAdsTable extends Migration
             $table->string('phone_number')->nullable();
             $table->timestamp('confirmed_at')->nullable();
             $table->integer('category_id');
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
 
