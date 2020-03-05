@@ -8,7 +8,7 @@
                      <span aria-hidden="true">&times;</span>
                  </button>
              </div>
-             <form action="{{ route('ads.create.post') }}" method="POST">
+             <form action="{{ route('ads.create.post') }}" method="POST" id="ad-submission-form">
                  <div class="modal-body">
                     @if ($errors->any() && old('modal') == 'ad')
                         <div class="alert alert-danger">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Services\Slug;
+use App\Models\AdImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,8 +22,16 @@ class AdController extends Controller
         }
 
         $ad = $this->createAd($req->all());
+        $uploadedImages = AdImage::whereIn('id', $req->img_ids)
+                                 ->whereNull('ad_id')
+                                 ->get();
 
         if($ad){
+            // Attach images that were uploaded in background to the ad
+            foreach($uploadedImages as $image){
+                $image->ad_id = $ad->id;
+                $image->save();
+            }
             return redirect()->route('ads.show.single', ['slug' => $ad->slug]);
         }
         
