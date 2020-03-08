@@ -21,6 +21,20 @@ class AdController extends Controller
                              ->withInput();
         }
 
+        // make sur that user picked a category
+        if($req->category_id == '-'){
+            return redirect()->back()
+                             ->with(['error' => 'Please pick a category'])
+                             ->withInput();
+        }
+
+        // make sur that user picked a city
+        if($req->city_id == '-'){
+            return redirect()->back()
+                                ->with(['error' => 'Please pick a city'])
+                                ->withInput();
+        }
+
         $ad = $this->createAd($req->all());
         $uploadedImages = AdImage::whereIn('id', $req->img_ids)
                                  ->whereNull('ad_id')
@@ -48,7 +62,6 @@ class AdController extends Controller
         return Validator::make($data, [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'category_id' => ['required', 'integer'],
             'email' => ['required', 'string', 'email'],
         ]);
     }
@@ -69,6 +82,7 @@ class AdController extends Controller
             'phone_number' => $data['phone_number'],
             'email' => $data['email'],
             'category_id' => $data['category_id'],
+            'city_id' => $data['city_id'],
             'user_id' => $userId,
         ]);
 

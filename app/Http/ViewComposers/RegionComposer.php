@@ -2,23 +2,21 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\Category;
+use App\Models\Region;
 use Illuminate\View\View;
 
-class CategoryComposer
+class RegionComposer
 {
-    public $categories = [];
+    public $regions = [];
 
     /**
-     * Create a category composer.
+     * Create a Region composer.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->categories = Category::whereNull('parent_id')
-                                    ->with('children', 'ads')
-                                    ->get();
+        $this->regions = Region::with('cities')->get();
     }
 
     /**
@@ -30,7 +28,7 @@ class CategoryComposer
     public function compose(View $view)
     {
         $view->with([
-            'categories' => $this->categories,
+            'regions' => $this->regions,
         ]);
     }
 }

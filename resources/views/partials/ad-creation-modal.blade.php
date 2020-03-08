@@ -17,6 +17,11 @@
                             @endforeach       
                         </div>
                     @endif
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
                      <div class="form-group">
                          <input type="text" name="title" id="title" placeholder="Post title" class="form-control">
                      </div>
@@ -39,6 +44,16 @@
                                  @endif
                              @endforeach
                          </select>
+                     </div>
+                     <div class="form-group">
+                        <select class="form-control" name="city_id">
+                            <option value="-" selected>Pick a city</option>
+                            @foreach ($regions as $region)
+                                @foreach ($region->cities as $city)
+                                    <option value="{{ $city->id }}">{{ ucfirst($city->name) }}</option>
+                                @endforeach
+                            @endforeach
+                        </select>
                      </div>
                      <div class="form-group">
                          <input type="email" name="email" id="email" placeholder="Enter your email address"

@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Ad extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'description', 'email', 'phone_number','category_id', 'user_id',
+        'title',
+        'slug', 
+        'description', 
+        'email', 
+        'phone_number',
+        'category_id', 
+        'user_id',
+        'city_id',
     ];
 
     public function category()

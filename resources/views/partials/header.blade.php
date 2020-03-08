@@ -21,43 +21,28 @@
         <div class="text-center col-md-7">
             <ul class="justify-content-center nav nav-pills mb-2">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">All regions</a>
+                    <a class="nav-link {{ request()->has('region') && request()->region == 'all' ? 'active ' : null}}" href="{{ request()->fullUrlWithQuery(['region' => 'all', 'city' => 'all']) }}">All regions</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Stajerska</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Gorenjska</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Koroska</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Savinjska</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Podravska</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Primorska</a>
-                </li>
+                @foreach ($regions as $region)
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->has('region') && request()->region == $region->slug ? 'active ' : null}}" href="{{ request()->fullUrlWithQuery(['region' => $region->slug, 'city' => 'all']) }}">{{ ucfirst($region->name) }}</a>
+                    </li>
+                @endforeach
+
             </ul>
             <ul class="justify-content-center nav nav-pills ">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">All cities</a>
+                    <a class="nav-link {{ request()->has('city') && request()->city == 'all' ? 'active ' : null}}" href="{{ request()->fullUrlWithQuery(['city' => 'all']) }}">All cities</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Velenje</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Celje</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mozirje</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Sostanj</a>
-                </li>
+                @foreach ($regions as $region)
+                    @foreach ($region->cities as $city)
+                        @if (request()->has('region') && request()->region == $region->slug)
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->has('city') && request()->city == $city->slug ? 'active ' : null}}" href="{{ request()->fullUrlWithQuery(['city' => $city->slug]) }}">{{ ucfirst($city->name) }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+                @endforeach
             </ul>
         </div>
         <div class="col-md-3 trailing  d-none d-md-block">
