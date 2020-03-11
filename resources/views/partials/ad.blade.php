@@ -9,5 +9,5 @@
                 <i class="fas fa-phone"></i> {{ $ad->phone_number }}              
             @endif
         </p>
-    <span class="badge badge-info">E </span> <span class="badge badge-danger">TODAY</span>
+    <span class="badge badge-info ad-type">{{ ucfirst($ad->type->name) }} </span> <span class="badge badge-danger">TODAY</span>
 </div>

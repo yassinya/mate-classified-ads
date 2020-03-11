@@ -25,6 +25,7 @@ class CreateAdsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('city_id');
+            $table->integer('type_id');
             $table->timestamps();
 
         });

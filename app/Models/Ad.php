@@ -15,6 +15,7 @@ class Ad extends Model
         'category_id', 
         'user_id',
         'city_id',
+        'type_id',
     ];
 
     public function category()
@@ -25,5 +26,10 @@ class Ad extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Models\AdType');
     }
 }

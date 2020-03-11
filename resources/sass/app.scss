@@ -26,6 +26,12 @@ a {
     background: #fff0;
 }
 
+.badge{
+    &.ad-type{
+        min-width: 50px !important;
+    }
+}
+
 .nav-link{
     padding: 4px 8px;
     font-size: 13px;

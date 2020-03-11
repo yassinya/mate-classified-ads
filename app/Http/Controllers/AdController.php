@@ -35,6 +35,13 @@ class AdController extends Controller
                                 ->withInput();
         }
 
+        // make sur that user specified ad type
+        if($req->type_id == '-'){
+            return redirect()->back()
+                                ->with(['error' => 'Please specify type of ad'])
+                                ->withInput();
+        }
+
         $ad = $this->createAd($req->all());
         $uploadedImages = AdImage::whereIn('id', $req->img_ids)
                                  ->whereNull('ad_id')
@@ -84,6 +91,7 @@ class AdController extends Controller
             'category_id' => $data['category_id'],
             'city_id' => $data['city_id'],
             'user_id' => $userId,
+            'type_id' => $data['type_id'],
         ]);
 
     }

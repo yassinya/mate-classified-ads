@@ -30,5 +30,8 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(
             '*', 'App\Http\ViewComposers\RegionComposer'
         );
+        View::composer(
+            '*', 'App\Http\ViewComposers\AdTypeComposer'
+        );
     }
 }

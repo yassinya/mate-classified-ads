@@ -30,6 +30,14 @@
                              class="form-control"></textarea>
                      </div>
                      <div class="form-group">
+                        <select class="form-control" name="type_id">
+                            <option value="-" selected>Type of the ad</option>
+                            @foreach ($adTypes as $type)
+                                <option value="{{ $type->id }}">{{ ucfirst($type->name) }}</option>
+                            @endforeach
+                        </select>
+                     </div>
+                     <div class="form-group">
                          <select name="category_id" id="category" class="form-control">
                              <option value="-" selected>Pick a category</option>
                              @foreach ($categories as $mainCategory)
