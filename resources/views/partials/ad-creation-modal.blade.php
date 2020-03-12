@@ -33,7 +33,7 @@
                         <select class="form-control" name="type_id">
                             <option value="-" selected>Type of the ad</option>
                             @foreach ($adTypes as $type)
-                                <option value="{{ $type->id }}">{{ ucfirst($type->name) }}</option>
+                                <option {{ old('type_id') && old('type_id') == $type->id ? 'selected' : null }} value="{{ $type->id }}">{{ ucfirst($type->name) }}</option>
                             @endforeach
                         </select>
                      </div>
@@ -44,11 +44,11 @@
                                  @if ($mainCategory->children->count() > 0)
                                     <optgroup label="{{ $mainCategory }}">
                                         @foreach ($mainCategory->children as $subCategory)                                            
-                                            <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                                            <option {{ old('category_id') && old('category_id') == $subCategory->id ? 'selected' : null }} value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
                                         @endforeach
                                     </optgroup>
                                  @else
-                                    <option value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
+                                    <option {{ old('category_id') && old('category_id') == $mainCategory->id ? 'selected' : null }} value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
                                  @endif
                              @endforeach
                          </select>
@@ -58,7 +58,7 @@
                             <option value="-" selected>Pick a city</option>
                             @foreach ($regions as $region)
                                 @foreach ($region->cities as $city)
-                                    <option value="{{ $city->id }}">{{ ucfirst($city->name) }}</option>
+                                    <option {{ old('city_id') && old('city_id') == $city->id ? 'selected' : null }} value="{{ $city->id }}">{{ ucfirst($city->name) }}</option>
                                 @endforeach
                             @endforeach
                         </select>
