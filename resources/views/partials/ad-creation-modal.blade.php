@@ -23,11 +23,11 @@
                         </div>
                     @endif
                      <div class="form-group">
-                         <input type="text" name="title" id="title" placeholder="Post title" class="form-control">
+                         <input type="text" value="{{ old('title') }}" required name="title" id="title" placeholder="Post title" class="form-control">
                      </div>
                      <div class="form-group">
-                         <textarea rows="4" name="description" id="description" placeholder="Post description"
-                             class="form-control"></textarea>
+                         <textarea rows="4" required name="description" id="description" placeholder="Post description"
+                             class="form-control">{{ old('description') }}</textarea>
                      </div>
                      <div class="form-group">
                         <select class="form-control" name="type_id">
@@ -64,12 +64,10 @@
                         </select>
                      </div>
                      <div class="form-group">
-                         <input type="email" name="email" id="email" placeholder="Enter your email address"
-                             class="form-control">
+                         <input type="email" value="{{ old('email') }}" required name="email" id="email" placeholder="Enter your email address" class="form-control">
                      </div>
                      <div class="form-group">
-                         <input type="text" name="phone_number" id="phone-number"
-                             placeholder="Enter a phone number (Optional)" class="form-control">
+                         <input type="text" value="{{ old('phone_number') }}" name="phone_number" id="phone-number" placeholder="Enter a phone number (Optional)" class="form-control">
                      </div>
                      <input type="hidden" name="modal" value="ad">
                      {{ csrf_field() }}
