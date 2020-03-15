@@ -32,4 +32,25 @@ class Ad extends Model
     {
         return $this->belongsTo('App\Models\AdType');
     }
+
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City');
+    }
+
+    public function scopeFilter($query, $filters){
+        if(isset($filters['region']) && $filters['region'] != 'all'){
+            $query->whereHas('city.region', function($q) use($filters){
+                $q->whereSlug($filters['region']);
+            });
+        }
+
+        if(isset($filters['city']) && $filters['city'] != 'all'){
+            $query->whereHas('city', function($q) use($filters){
+                $q->whereSlug($filters['city']);
+            });
+        }
+
+        return $query;
+    }
 }

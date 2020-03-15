@@ -4,7 +4,7 @@
 @section('content')
 <section class="container">
         <div class="row">
-            @foreach($categories as $mainCategory)
+            @foreach($categoriesWithAds as $mainCategory)
                 @if($mainCategory->children->count() > 0 || $mainCategory->ads->count() > 0)
                     <div class="col-md-3">
                         <div class="category-wrapper">

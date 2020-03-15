@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function showHomePage()
+    public function showHomePage(Request $req)
     {
-        $ads = Ad::all();
+        $filters = $req->only(['region', 'city']);
+        $categoriesWithAds = Category::whereNull('parent_id')
+                                     ->whereHas('ads', function($q) use($filters){
+                                         $q->filter($filters);
+                                     })
+                                     ->with('children', 'ads')
+                                     ->get();
 
         // TODO return 404
 
-        return view('home', ['ads' => $ads]);
+        return view('home', ['categoriesWithAds' => $categoriesWithAds]);
     }
 }

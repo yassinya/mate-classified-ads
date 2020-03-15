@@ -10,4 +10,9 @@ class City extends Model
     {
         return $this->belongsTo('App\Models\Region');
     }
+
+    public function ads()
+    {
+        return $this->hasMany('App\Models\Ad');
+    }
 }
