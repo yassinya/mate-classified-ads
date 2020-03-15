@@ -32,6 +32,19 @@ a {
     }
 }
 
+.filter-ads{
+    display: none;
+    padding: 10px;
+}
+
+.btn{
+    &.btn-outline{
+        background: none;
+        border: 1px solid #007bff;
+        color: #007bff;
+    }
+}
+
 .nav-link{
     padding: 4px 8px;
     font-size: 13px;

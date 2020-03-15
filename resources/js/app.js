@@ -65,4 +65,26 @@ $(document).ready(function () {
             location.reload();
         });
     });
+
+    $( "#filter-ads-btn" ).click(function() {
+        $( ".filter-ads" ).slideToggle( "slow", function() {
+            //
+        });
+      });
+
+    $("#region-selector" ).click(function() {
+        // get selected region slug
+        var region = $(this).find('option:selected').val(); 
+        // put back city options in #city-container under city selector
+        $("#cities-container").children().appendTo("#city-selector");
+        // get city options that doen't belong to the selected region
+        var citiesToHide = $("#city-selector").children(".cities[data-region!='"+region+"']");
+        // move them under #cities-container
+        citiesToHide.appendTo("#cities-container"); 
+        if(region != 'all'){
+            $("#city-selector").removeAttr("disabled");
+        }else{
+            $("#city-selector").prop("disabled", true);
+        }
+      });
 });

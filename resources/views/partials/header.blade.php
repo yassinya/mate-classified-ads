@@ -1,21 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary d-md-none ">
-    <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="">Sign in</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="">Sign up</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<section class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-md-none">
+        <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              @if (auth()->check())
+                  <li class="nav-item active">
+                    <a id="logout" class="nav-link" href="#">My ads</a>
+                  </li>
+              @else
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="#">Sign up</a>
+                  </li>
+              @endif
+          </ul>
+        </div>
+      </nav>
+<section class="container d-none d-md-block">
     <div class="row header">
         <div class="col-md-2 brand d-none d-md-block">
-            <h5>PRDEC</h5>
+            <h5>{{ env('APP_NAME') }}</h5>
             <span>Prodam kot bi prdnil</span>
         </div>
         <div class="text-center col-md-7">
@@ -30,6 +36,7 @@
                 @endforeach
 
             </ul>
+            <hr>
             <ul class="justify-content-center nav nav-pills ">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->has('city') && request()->city == 'all' ? 'active ' : null}}" href="{{ request()->fullUrlWithQuery(['city' => 'all']) }}">All cities</a>
@@ -65,3 +72,4 @@
         </div>
     </div>
 </section>
+
