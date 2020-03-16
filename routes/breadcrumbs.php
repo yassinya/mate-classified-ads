@@ -17,6 +17,12 @@ Breadcrumbs::for('login', function ($trail) {
     $trail->push('Login', route('login'));
 });
 
+// Home > submit ad
+Breadcrumbs::for('submit-ad', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Submit your ad', route('ads.create'));
+});
+
 // Home > category
 Breadcrumbs::for('category', function ($trail, $category) {
     $trail->parent('home');

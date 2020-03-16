@@ -56,8 +56,8 @@
         <div class="col-md-3 trailing  d-none d-md-block">
             <span>Fastest Classifieds in Slovenia</span>
             <span class="d-block mb-1"><strong>42,646</strong> ads, <strong>2,738</strong> images</span>
-            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#post-ad-modal">
-            <i class="fas fa-plus-square"></i> Post your ad</button>
+            <a href="{{ route('ads.create') }}" class="btn btn-sm btn-primary">
+            <i class="fas fa-plus-square"></i> Post your ad</a>
             @if (auth()->check())
                 <div class="dropdown d-inline ml-2">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

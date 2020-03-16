@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AdController extends Controller
 {
+    public function showAdSubmissionForm(){
+        return view('ads.post-ad');
+    }
+    
     public function postAd(Request $req)
     {
         // validate user inputs

@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="container d-md-none mb-5">
-        <button class="btn btn-outline" data-toggle="modal" data-target="#post-ad-modal"> <i class="fas fa-plus"></i> Post</button>
+        <a href="{{ route('ads.create') }}" class="btn btn-outline"> <i class="fas fa-plus"></i> Post</a>
         <button class="btn btn-outline" id="filter-ads-btn"><i class="fas fa-filter"></i> Filter</button>
         <form class="filter-ads">
             <div class="form-group">
@@ -85,7 +85,6 @@
         </section>
     @endif
     @yield('content')
-    @include('partials.ad-creation-modal')
     @include('partials.footer')
 
     <script src="{{ mix('js/app.js') }}"></script>
