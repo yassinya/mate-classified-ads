@@ -12,7 +12,7 @@
                   </li>
               @else
                   <li class="nav-item active">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
                     <a class="nav-link" href="{{ route('register') }}">Sign up</a>
                   </li>
               @endif
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             @else                
-                <p class="d-inline"> | <a href="#" data-toggle="modal" data-target="#login-modal">login</a> or <a href="{{ route('register') }}">Register</a></p>
+                <p class="d-inline"> | <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">Register</a></p>
             @endif
         </div>
     </div>

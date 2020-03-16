@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthenticationController extends Controller
 {
+    public function showLoginPage(){
+        return view('auth.login');
+    }
+
     public function login(Request $req)
     {
         $credentials = $req->only('email', 'password');

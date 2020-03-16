@@ -25,6 +25,7 @@ Route::middleware(['guest'])->group( function ()
 {
     Route::get('/register', 'RegisterController@showRegisterPage')->name('register');
     Route::post('/register', 'RegisterController@register')->name('register.post');
+    Route::get('/login', 'AuthenticationController@showLoginPage')->name('login');
     Route::post('/login', 'AuthenticationController@login')->name('login.post');
 });
 
