@@ -23,6 +23,7 @@ Route::post('/images/remove/single', 'ImageController@removeImage')->name('image
 // Only non logged in users can access below routes
 Route::middleware(['guest'])->group( function ()
 {
+    Route::get('/register', 'RegisterController@showRegisterPage')->name('register');
     Route::post('/register', 'RegisterController@register')->name('register.post');
     Route::post('/login', 'AuthenticationController@login')->name('login.post');
 });

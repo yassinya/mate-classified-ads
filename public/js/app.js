@@ -38650,7 +38650,8 @@ var dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_0___default.a("#dropzone", 
 });
 $(document).ready(function () {
   $('.open-it').modal('show');
-  $('#logout').on('click', function () {
+  $('.logout').on('click', function () {
+    console.log('logging out...');
     $.post("/logout", {
       _token: CSRF_TOKEN
     }).done(function () {

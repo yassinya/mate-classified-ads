@@ -5,6 +5,12 @@ Breadcrumbs::for('home', function ($trail) {
     $trail->push('Home', route('home'));
 });
 
+// Home > register
+Breadcrumbs::for('register', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Register', route('register'));
+});
+
 // Home > category
 Breadcrumbs::for('category', function ($trail, $category) {
     $trail->parent('home');

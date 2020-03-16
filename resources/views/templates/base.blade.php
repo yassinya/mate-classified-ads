@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div class="container d-md-none">
+    <div class="container d-md-none mb-5">
         <button class="btn btn-outline" data-toggle="modal" data-target="#post-ad-modal"> <i class="fas fa-plus"></i> Post</button>
         <button class="btn btn-outline" id="filter-ads-btn"><i class="fas fa-filter"></i> Filter</button>
         <form class="filter-ads">
@@ -53,39 +53,40 @@
             <a class="btn btn-default" href="{{ url()->current() }}">Reset</a>
         </form>
     </div>
-    <section class="container mt-5">
-        <div class="row filters">
-            <div class="col-md-8 col-sm-12 align-self-center d-none d-md-block">
-                <p> *Stats* Today (32) Yesterday (125) Last week (1277)</p>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <form action="">
-                    <div class="form-group">
-                        <select id="category-filter" class="form-control">
-                            <option value="-">All categories</option>
-                            @foreach ($categories as $mainCategory)
-                                @if (count($mainCategory->children) > 0)
+    @if(! isset($isAuth))
+        <section class="container mt-5 mb-5">
+            <div class="row filters">
+                <div class="col-md-8 col-sm-12 align-self-center d-none d-md-block">
+                    <p> *Stats* Today (32) Yesterday (125) Last week (1277)</p>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <form action="">
+                        <div class="form-group">
+                            <select id="category-filter" class="form-control">
+                                <option value="-">All categories</option>
+                                @foreach ($categories as $mainCategory)
                                     @if (count($mainCategory->children) > 0)
-                                        <optgroup label="{{ $mainCategory->name }}">
-                                            @foreach ($mainCategory->children as $subCategory)
-                                                <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
-                                            @endforeach                                        
-                                        </optgroup>
-                                    @endif 
-                                @else
-                                    <option value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
-                                @endif    
-                            @endforeach 
-                        </select>
-                    </div>
-                </form>
+                                        @if (count($mainCategory->children) > 0)
+                                            <optgroup label="{{ $mainCategory->name }}">
+                                                @foreach ($mainCategory->children as $subCategory)
+                                                    <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                                                @endforeach                                        
+                                            </optgroup>
+                                        @endif 
+                                    @else
+                                        <option value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
+                                    @endif    
+                                @endforeach 
+                            </select>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     @yield('content')
     @include('partials.ad-creation-modal')
     @if(!auth()->check())
-        @include('partials.register-modal')
         @include('partials.login-modal')
     @endif
     @include('partials.footer')

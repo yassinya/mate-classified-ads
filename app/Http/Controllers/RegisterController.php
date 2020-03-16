@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    public function showRegisterPage(){
+        return view('auth.register');
+    }
+
     public function register(Request $req)
     {
         // set validation rules for user inputs
@@ -33,7 +37,7 @@ class RegisterController extends Controller
         // login the newly created user
         Auth::login($user);
 
-        return redirect()->back();
+        return redirect()->route('home');
     }
 
     protected function validator(array $data){

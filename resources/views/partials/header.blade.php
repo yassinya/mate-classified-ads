@@ -7,12 +7,13 @@
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               @if (auth()->check())
                   <li class="nav-item active">
-                    <a id="logout" class="nav-link" href="#">My ads</a>
+                    <a class="nav-link" href="#">My ads</a>
+                    <a class="nav-link logout" href="#">Logout</a>
                   </li>
               @else
                   <li class="nav-item active">
                     <a class="nav-link" href="#">Login</a>
-                    <a class="nav-link" href="#">Sign up</a>
+                    <a class="nav-link" href="{{ route('register') }}">Sign up</a>
                   </li>
               @endif
           </ul>
@@ -63,11 +64,11 @@
                         <span>{{ ucfirst(auth()->user()->first_name) }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a id="logout" class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item logout" href="#">Logout</a>
                     </div>
                 </div>
             @else                
-                <p class="d-inline"> | <a href="#" data-toggle="modal" data-target="#login-modal">login</a> or <a href="#" data-toggle="modal" data-target="#register-modal">Register</a></p>
+                <p class="d-inline"> | <a href="#" data-toggle="modal" data-target="#login-modal">login</a> or <a href="{{ route('register') }}">Register</a></p>
             @endif
         </div>
     </div>
