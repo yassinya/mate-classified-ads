@@ -1,10 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
 @import '~dropzone/dist/min/dropzone.min';
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body{
     background: #f3f3f3;
     /* background: #eee; */
-    height: 566px;
+    margin: 0 0 100px;
 }
 
 a {
@@ -115,4 +120,10 @@ a {
 
 footer{
     background-color: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    overflow: hidden;
 }

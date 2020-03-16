@@ -11738,10 +11738,15 @@ a.text-dark:focus {
   border-bottom: 6px solid #be2626;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   background: #f3f3f3;
   /* background: #eee; */
-  height: 566px;
+  margin: 0 0 100px;
 }
 
 a:hover,
@@ -11861,5 +11866,11 @@ a.active {
 
 footer {
   background-color: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  overflow: hidden;
 }
 
