@@ -62,19 +62,19 @@
                 <div class="col-md-4 col-sm-12">
                     <form action="">
                         <div class="form-group">
-                            <select id="category-filter" class="form-control">
+                            <select id="category-selector" class="form-control">
                                 <option value="-">All categories</option>
                                 @foreach ($categories as $mainCategory)
                                     @if (count($mainCategory->children) > 0)
                                         @if (count($mainCategory->children) > 0)
                                             <optgroup label="{{ $mainCategory->name }}">
                                                 @foreach ($mainCategory->children as $subCategory)
-                                                    <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                                                    <option value="{{ $subCategory->slug }}" {{ Route::currentRouteName() == 'categories.show.single' && request()->slug == $subCategory->slug ? 'selected' : null }}>{{ $subCategory->name }}</option>
                                                 @endforeach                                        
                                             </optgroup>
                                         @endif 
                                     @else
-                                        <option value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
+                                        <option value="{{ $mainCategory->slug }}" {{ Route::currentRouteName() == 'categories.show.single' && request()->slug == $mainCategory->slug ? 'selected' : null }}>{{ $mainCategory->name }}</option>
                                     @endif    
                                 @endforeach 
                             </select>

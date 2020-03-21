@@ -12168,6 +12168,14 @@ a.active {
   padding: 5px;
 }
 
+.post .footer .fas {
+  font-size: 10px;
+}
+
+.post .footer .contact span {
+  display: inline-block;
+}
+
 .post .badge {
   font-size: 11px;
   min-width: 20px;
@@ -12189,7 +12197,12 @@ a.active {
   margin-right: 2px;
 }
 
-.post .post-content .fas {
+.single-category .post {
+  padding: 15px;
+  margin-bottom: 14px;
+}
+
+.single-category .post .footer .fas {
   font-size: 10px;
 }
 

@@ -44042,9 +44042,7 @@ if ($('#dropzone').length) {
   });
 }
 
-console.log('hhh');
 $(document).ready(function () {
-  $('.open-it').modal('show');
   $('.logout').on('click', function () {
     console.log('logging out...');
     $.post("/logout", {
@@ -44089,6 +44087,15 @@ $(document).ready(function () {
   //   for an individual element
 
   var msnry = new masonry_layout__WEBPACK_IMPORTED_MODULE_1___default.a('.grid', {// options
+  });
+  $('#category-selector').change(function () {
+    var categorySlug = $(this).find('option:selected').val();
+
+    if (categorySlug == '-') {
+      window.location.href = window.location.origin + window.location.search;
+    } else {
+      window.location.href = window.location.origin + "/categories/show/" + categorySlug + window.location.search;
+    }
   });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))

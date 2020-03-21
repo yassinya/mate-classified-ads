@@ -24,13 +24,13 @@ Breadcrumbs::for('submit-ad', function ($trail) {
 });
 
 // Home > category
-Breadcrumbs::for('category', function ($trail, $category) {
+Breadcrumbs::for('single-category', function ($trail, $category) {
     $trail->parent('home');
-    $trail->push($category->name, '/');
+    $trail->push($category->name, route('categories.show.single', ['slug' => $category->slug]));
 });
 
 // Home > category > ad
 Breadcrumbs::for('ad', function ($trail, $ad) {
-    $trail->parent('category', $ad->category);
+    $trail->parent('single-category', $ad->category);
     $trail->push($ad->title, route('ads.show.single', ['slug' => $ad->slug]));
 });
