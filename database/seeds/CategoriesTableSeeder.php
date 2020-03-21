@@ -12,8 +12,8 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $colors = ['#bd2130', '#007bff', '#28a745', '#8228a7', '#28a766'];
-        $categoryNames = ['Cars', 'Houses', 'Electronics', 'Smartphones'];
+        $colors = ['#bd2130', '#007bff', '#28a745', '#8228a7', '#28a766', '#463F1A', '#F72C25'];
+        $categoryNames = ['Cars', 'Houses', 'Electronics', 'Smartphones', 'Babies', 'Fashion', 'Moto'];
 
         foreach ($categoryNames as $categoryName) {
             $category = new Category();

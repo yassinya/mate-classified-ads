@@ -38,6 +38,11 @@ class Ad extends Model
         return $this->belongsTo('App\Models\City');
     }
 
+    public function images()
+    {
+        return $this->hasMany('App\Models\AdImage');
+    }
+
     public function scopeFilter($query, $filters){
         if(isset($filters['region']) && $filters['region'] != 'all'){
             $query->whereHas('city.region', function($q) use($filters){

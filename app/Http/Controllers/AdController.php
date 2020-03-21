@@ -101,10 +101,9 @@ class AdController extends Controller
     }
 
     public function showSingleAd($slug){
-        $ad = Ad::whereSlug($slug)->with('category')->first();
-
+        $ad = Ad::whereSlug($slug)->with('category', 'category.ads')->first();
         // TODO return 404
 
-        return view('single-ad', ['ad' => $ad]);
+        return view('ads.single-ad', ['ad' => $ad]);
     }
 }

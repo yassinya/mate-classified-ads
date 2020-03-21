@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light d-md-none">
-        <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
+        <a class="navbar-brand" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,7 +22,7 @@
 <section class="container d-none d-md-block">
     <div class="row header">
         <div class="col-md-2 brand d-none d-md-block">
-            <h5>{{ env('APP_NAME') }}</h5>
+            <a href="{{ route('home') }}"><h5>{{ env('APP_NAME') }}</h5></a>
             <span>Prodam kot bi prdnil</span>
         </div>
         <div class="text-center col-md-7">

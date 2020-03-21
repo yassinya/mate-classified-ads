@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\AdImage;
 use App\Models\AdImageSize;
 use Intervention\Image\Facades\Image;
@@ -39,7 +40,11 @@ if(! function_exists('uploadImg')){
         $image_versions_sizes = [
             'mini_thumbnail' => [
             'width' => '120',
-            'height' => '106',
+            'height' => '120',
+            ],
+            'slider' => [
+            'width' => '800',
+            'height' => '600',
             ],
         ];
     
@@ -79,7 +84,7 @@ if(! function_exists('ymake_thumbnails')){
         $vertical   = (($width < $height) ? true : false);
         $horizontal = (($width > $height) ? true : false);
         $square     = (($width = $height) ? true : false);
-        $padding = 0;
+        $padding = 20;
 
         if ($vertical) {
             // we'll resize width or height base on the box shape
@@ -135,5 +140,11 @@ if(! function_exists('ymake_thumbnails')){
         $img->save(public_path('storage/images/'.$final_name));
         
         return $final_name;
+    }
+}
+
+if(! function_exists('caRelativeDate')){
+    function caRelativeDate($date){
+        return $date->diffIndays(Carbon::now()) >= 7 ? $date->tz("Africa/Djibouti")->toDateString() : $date->tz("Africa/Djibouti")->diffForHumans();
     }
 }

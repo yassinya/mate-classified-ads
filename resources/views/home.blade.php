@@ -3,10 +3,11 @@
 
 @section('content')
 <section class="container">
-        <div class="row">
+    @if($categoriesWithAds->count() > 0)
+        <div class="grid">
             @foreach($categoriesWithAds as $mainCategory)
                 @if($mainCategory->children->count() > 0 || $mainCategory->ads->count() > 0)
-                    <div class="col-md-3">
+                    <div class="grid-item">
                         <div class="category-wrapper">
                             <div class="category-header" style="background: {{ $mainCategory->color_hex }}">
                                 <h6>{{ $mainCategory->name }}</h6>
@@ -29,5 +30,8 @@
                 @endif
             @endforeach
         </div>
-    </section>
+    @else
+        <p class="text-center">No ads</p>
+    @endif
+</section>
 @endsection

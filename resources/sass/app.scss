@@ -1,5 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import '~dropzone/dist/min/dropzone.min';
+@import '~slick-carousel/slick/slick';
+@import '~slick-carousel/slick/slick-theme';
 
 html {
     position: relative;
@@ -18,6 +20,50 @@ a {
     }
 }
 
+
+.ad-details {
+    background: #fff;
+    padding: 29px;
+
+    #title{
+        margin-bottom: 17px;
+        font-size: 24px;
+    }
+    .images{
+        // padding: 0 150px;
+        .slider-for{
+            img{
+                margin: auto;
+            }
+        }
+        .slider-nav{
+            img{
+                height: 225px;;
+                width: 100%;
+            }
+        }
+        .slick-prev:before, .slick-next:before{
+            color: #000;
+        }
+        margin-bottom: 18px;
+    }
+    .footer{
+        div:not(:last-child){
+            margin-right: 30px;
+        }
+        font-size: 13px;
+        color: #151515;
+    }
+}
+
+.card{
+    .card-body{
+        p{
+            font-size: 13px;
+        }
+    }
+}
+
 .dropzone{
     border: #007bff 1px solid;
     margin: 16px;
@@ -26,6 +72,13 @@ a {
 .dropzone .dz-preview{
     margin: 6px;
 }
+
+.grid-item { 
+    width: calc(25% - 10px);
+    padding: 0px 5px;
+}
+
+.grid-item--width2 { width: 400px; }
 
 .breadcrumb{
     background: #fff0;
@@ -107,6 +160,7 @@ a {
 .post .post-content{
     font-size: 14px;
     margin: 0;
+    overflow-wrap: break-word;
 }
 .post .post-content .post-images img{
     width: 50px;
@@ -126,4 +180,57 @@ footer{
     height: 60px;
     width: 100%;
     overflow: hidden;
+}
+
+
+
+@media (max-width: 390px) { 
+    .ad-details{
+        .title{
+
+        }
+        .images{
+            .slider-nav{
+                img{
+                    height: 95px;
+                }
+            }
+        }
+        .footer{
+            flex-direction: column;
+        }
+    }
+
+    .grid-item{
+        .grid-item{
+            width: calc(100% - 10px);
+        }
+    }
+ }
+
+
+@media (min-width: 250px) { 
+    .grid-item{
+        width: calc(100% - 10px);
+    }
+}
+
+@media (min-width: 576px) { 
+    .grid-item{
+        width: calc(50% - 10px);
+    }
+ }
+
+
+@media (min-width: 768px) { 
+    .grid-item{
+        width: calc(33% - 10px);
+    }
+}
+
+
+@media (min-width: 992px) { 
+    .grid-item{
+        width: calc(25% - 10px);
+    }
 }
