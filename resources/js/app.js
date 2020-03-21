@@ -17,6 +17,12 @@ if($('#dropzone').length){
         acceptedFiles: "image/*",
         dictRemoveFile: "Remove",
         dictDefaultMessage: "Click or drop images here",
+        init: function(){
+            this.on("sending", function(event) {
+                // disable submit button while images are being uploaded
+                $('#ad-submission-form button[type="submit"]').prop('disabled', true);       
+            });
+        },
         success:function(file, response){
             console.log(response);
             file.serverId = response.id;
@@ -24,6 +30,9 @@ if($('#dropzone').length){
             $('#ad-submission-form').append('<input type="hidden" name="img_ids[]" value="'+response.id+'" class="ad-img-ids">');
     
             this.createThumbnailFromUrl( file, response);
+
+            //enable submit button again after img uploading
+            $('#ad-submission-form button[type="submit"]').prop('disabled', false);
         },
         removedfile: function(file) {
             var thisDropzone = this;
