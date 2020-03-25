@@ -97,6 +97,7 @@ a {
 }
 
 .btn{
+    min-width: 80px !important;
     &.btn-outline{
         background: none;
         border: 1px solid #007bff;

@@ -43989,60 +43989,52 @@ dropzone__WEBPACK_IMPORTED_MODULE_0___default.a.autoDiscover = false;
 
 if ($('#dropzone').length) {
   var dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_0___default.a("#dropzone", {
-    url: "/images/upload/single",
+    url: "/ads/submit",
     params: {
       _token: CSRF_TOKEN
     },
     addRemoveLinks: true,
-    autoProcessQueue: true,
-    parallelUploads: 1,
+    autoProcessQueue: false,
+    uploadMultiple: true,
+    parallelUploads: 5,
     acceptedFiles: "image/*",
     dictRemoveFile: "Remove",
     dictDefaultMessage: "Click or drop images here",
     init: function init() {
-      this.on("sending", function (event) {
+      this.on('sendingmultiple', function (file, xhr, formData) {
         // disable submit button while images are being uploaded
-        $('#ad-submission-form button[type="submit"]').prop('disabled', true);
+        $('#ad-submission-form #submit-btn').prop('disabled', true); // Append all form inputs to the formData Dropzone will POST
+
+        var data = $('#ad-submission-form').serializeArray();
+        $.each(data, function (key, el) {
+          formData.append(el.name, el.value);
+        });
+      });
+      this.on('errormultiple', function (files, response) {
+        console.log(response);
+        var dropzoneFilesCopy = files.slice(0);
+        dropzone.removeAllFiles();
+        $.each(dropzoneFilesCopy, function (_, file) {
+          if (file.status === dropzone__WEBPACK_IMPORTED_MODULE_0___default.a.ERROR) {
+            file.status = undefined;
+            file.accepted = undefined;
+          }
+
+          dropzone.addFile(file);
+        });
+        showAdSubmissionFormErrors(response.validation);
+        $('#ad-submission-form #submit-btn').prop('disabled', false);
       });
     },
     success: function success(file, response) {
       console.log(response);
-      file.serverId = response.id;
-      $('#ad-submission-form').append('<input type="hidden" name="img_ids[]" value="' + response.id + '" class="ad-img-ids">');
       this.createThumbnailFromUrl(file, response); //enable submit button again after img uploading
 
-      $('#ad-submission-form button[type="submit"]').prop('disabled', false);
+      $('#ad-submission-form #submit-btn').prop('disabled', false);
+      console.log(response);
+      window.location.href = response.adLink;
     },
     removedfile: function removedfile(file) {
-      var thisDropzone = this;
-      var name = file.name;
-      console.log(file.additionalInfo);
-      $.ajax({
-        type: 'POST',
-        url: 'images/remove/single',
-        data: {
-          _token: CSRF_TOKEN,
-          img_id: file.serverId
-        },
-        dataType: "JSON",
-        success: function success(data) {
-          console.log(data);
-
-          if (data.status == 200) {
-            $('#ad-submission-form').find('.ad-img-ids[value="' + file.serverId + '"').remove();
-          }
-
-          if (data.status == 404) {
-            thisDropzone.options.addedfile.call(thisDropzone, file);
-            thisDropzone.options.thumbnail.call(thisDropzone, file, file.url);
-            thisDropzone.emit('complete', file);
-          }
-        },
-        error: function error(er) {
-          console.log(er);
-        }
-      });
-
       var _ref;
 
       return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
@@ -44104,8 +44096,83 @@ $(document).ready(function () {
     } else {
       window.location.href = window.location.origin + "/categories/show/" + categorySlug + window.location.search;
     }
+  }); // ad submission
+
+  $('#ad-submission-form #submit-btn').on('click', function () {
+    console.log('submitting');
+    var title = $('#ad-submission-form input[name="title"]').val();
+    var description = $('#ad-submission-form textarea[name="description"]').val();
+    var typeId = $('#ad-submission-form select[name="type_id"] option:selected').val();
+    var categoryId = $('#ad-submission-form select[name="category_id"] option:selected').val();
+    var cityId = $('#ad-submission-form select[name="city_id"] option:selected').val();
+    var email = $('#ad-submission-form input[name="email"]').val();
+    var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val();
+    console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+    $('#errors-wrapper #error').remove();
+
+    if (categoryId == '-') {
+      $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> Please pick a category<br></div>');
+      return;
+    }
+
+    if (cityId == '-') {
+      $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> Please pick a city<br></div>');
+      return;
+    }
+
+    if (typeId == '-') {
+      $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> Please specify type of ad<br></div>');
+      return;
+    }
+
+    if (dropzone.files.length > 0) {
+      dropzone.processQueue();
+    } else {
+      $.ajax({
+        url: "/ads/submit",
+        type: "post",
+        data: {
+          title: title,
+          description: description,
+          type_id: typeId,
+          category_id: categoryId,
+          city_id: cityId,
+          email: email,
+          phone_number: phoneNumber,
+          _token: CSRF_TOKEN
+        },
+        success: function success(response) {
+          console.log(response);
+
+          if (response.adLink) {
+            window.location.href = response.adLink;
+          }
+        },
+        error: function error(_error) {
+          console.log(_error);
+
+          if (_error.responseJSON.validation) {
+            showAdSubmissionFormErrors(_error.responseJSON.validation);
+          }
+
+          if (_error.responseJSON.error) {
+            // alert(error.responseJSON.error)
+            $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> ' + _error.responseJSON.error + '<br></div>');
+          }
+        }
+      });
+    }
   });
 });
+
+function showAdSubmissionFormErrors(errors) {
+  var elements = '';
+  $('#errors-wrapper').append('<div class="alert alert-danger" id="error"></div>');
+  Object.keys(errors).forEach(function (key) {
+    elements += '<i class="fas fa-info"></i> ' + errors[key][0] + '<br>';
+  });
+  $('#errors-wrapper #error').html(elements);
+}
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

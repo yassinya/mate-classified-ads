@@ -18,60 +18,29 @@ class AdController extends Controller
     {
         // validate user inputs
         $validator = $this->validator($req->all());
+        // return response()->json($req->all());
 
         if($validator->fails()) {
-            return redirect()->back()
-                             ->withErrors($validator)
-                             ->withInput();
-        }
-
-        // make sur that user picked a category
-        if($req->category_id == '-'){
-            return redirect()->back()
-                             ->with(['error' => 'Please pick a category'])
-                             ->withInput();
-        }
-
-        // make sur that user picked a city
-        if($req->city_id == '-'){
-            return redirect()->back()
-                                ->with(['error' => 'Please pick a city'])
-                                ->withInput();
-        }
-
-        // make sur that user specified ad type
-        if($req->type_id == '-'){
-            return redirect()->back()
-                                ->with(['error' => 'Please specify type of ad'])
-                                ->withInput();
+            return response()->json(['validation' => $validator->messages()], 500);
         }
 
         $ad = $this->createAd($req->all());
-        $uploadedImages = AdImage::whereIn('id', $req->img_ids)
-                                 ->whereNull('ad_id')
-                                 ->get();
 
         if($ad){
-            // Attach images that were uploaded in background to the ad
-            foreach($uploadedImages as $image){
-                $image->ad_id = $ad->id;
-                $image->save();
+            if($req->file){
+                $this->saveImages($req->file, $ad->id);
             }
-            return redirect()->route('ads.show.single', ['slug' => $ad->slug]);
+            return response()->json(['adLink' => route('ads.show.single', ['slug' => $ad->slug])]);
         }
         
         // reaching here means ad was not saved because something went wrong
         // return error message
-        return redirect()->back()
-                         ->withInput($req->except('password'))
-                         ->withErrors([
-                             'Ops! Something went wrong, we could not create your post. Please try later'
-                         ]);
+        return response()->json(['error' => 'Ops! Something went wrong, we could not create your post. Please try later'], 500);
     }
 
     protected function validator(array $data){
         return Validator::make($data, [
-            'title' => ['required', 'string'],
+            'title' => ['required', 'string',],
             'description' => ['required', 'string'],
             'email' => ['required', 'string', 'email'],
         ]);
@@ -105,5 +74,12 @@ class AdController extends Controller
         // TODO return 404
 
         return view('ads.single-ad', ['ad' => $ad]);
+    }
+
+    protected function saveImages($files, $adId){
+        
+        foreach($files as $file){
+            create_ad_img($file, $adId);
+        }
     }
 }

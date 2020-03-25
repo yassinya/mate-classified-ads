@@ -7,10 +7,11 @@ use Intervention\Image\Facades\Image;
 
 
 if(! function_exists('create_ads_img')){
-    function create_ad_img($image_file){
+    function create_ad_img($image_file, $ad_id){
         $image_sizes_to_store = uploadImg($image_file);
         $created_image_sizes = [];
         $image = new AdImage();
+        $image->ad_id = $ad_id;
         $image->save();
         // store different sizes for this image
         foreach ($image_sizes_to_store as $type => $name) {
@@ -20,7 +21,7 @@ if(! function_exists('create_ads_img')){
             $image_size->image()->associate($image);
             if($image_size->save()) $created_image_sizes[$type] = $name;
         }
-        return $image->id;
+        return $image;
     }
 }
 

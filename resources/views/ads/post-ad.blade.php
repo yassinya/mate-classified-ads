@@ -10,13 +10,9 @@
                         <div class="text-center mb-5">
                             <h4>Submit your ad</h4>
                         </div>
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <i class="fas fa-info"></i> {{ $error }}<br>
-                                @endforeach       
+                            <div id="errors-wrapper">
+                                        
                             </div>
-                        @endif
                         @if (session()->has('error'))
                             <div class="alert alert-danger">
                                 {{ session()->get('error') }}
@@ -71,7 +67,7 @@
                         </div>
                         {{ csrf_field() }}
                         <div id="dropzone" class="dropzone"></div>             
-                        <button type="submit" class="btn btn-primary">Post</button>
+                        <button type="button" id="submit-btn" class="btn btn-primary">Post</button>
                     </form>
                 </div>
             </div>

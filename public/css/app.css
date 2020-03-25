@@ -12105,6 +12105,10 @@ a.active {
   padding: 10px;
 }
 
+.btn {
+  min-width: 80px !important;
+}
+
 .btn.btn-outline {
   background: none;
   border: 1px solid #007bff;

@@ -17,9 +17,6 @@ Route::get('/', 'PageController@showHomePage')->name('home');
 Route::get('/ads/submit', 'AdController@showAdSubmissionForm')->name('ads.create');
 Route::post('/ads/submit', 'AdController@postAd')->name('ads.create.post');
 Route::get('/ads/show/{slug}', 'AdController@showSingleAd')->name('ads.show.single');
-//images
-Route::post('/images/upload/single', 'ImageController@uploadImage')->name('image.upload.single');
-Route::post('/images/remove/single', 'ImageController@removeImage')->name('image.remove.single');
 // categories
 Route::get('/categories/show/{slug}', 'CategoryController@showSingleCategory')->name('categories.show.single');
 
