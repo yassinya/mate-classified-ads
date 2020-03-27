@@ -56,8 +56,13 @@
         <div class="col-md-3 trailing  d-none d-md-block">
             <span>Fastest Classifieds in Slovenia</span>
             <span class="d-block mb-1"><strong>42,646</strong> ads, <strong>2,738</strong> images</span>
-            <a href="{{ route('ads.create') }}" class="btn btn-sm btn-primary">
-            <i class="fas fa-plus-square"></i> Post your ad</a>
+            @if (isset($category))
+                <a href="{{ route('ads.create', ['cat-slug' => $category->slug]) }}" class="btn btn-sm btn-primary">
+                <i class="fas fa-plus-square"></i> Post your ad</a>
+            @else
+                <a href="{{ route('ads.create') }}" class="btn btn-sm btn-primary">
+                <i class="fas fa-plus-square"></i> Post your ad</a>
+            @endif
             @if (auth()->check())
                 <div class="dropdown d-inline ml-2">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

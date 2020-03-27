@@ -40,11 +40,11 @@
                                     @if ($mainCategory->children->count() > 0)
                                        <optgroup label="{{ $mainCategory }}">
                                            @foreach ($mainCategory->children as $subCategory)                                            
-                                               <option {{ old('category_id') && old('category_id') == $subCategory->id ? 'selected' : null }} value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                                               <option {{ old('category_id') && old('category_id') == $subCategory->id || request()->has('cat-slug') && request()->get('cat-slug') == $subCategory->slug ? 'selected' : null }} value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
                                            @endforeach
                                        </optgroup>
                                     @else
-                                       <option {{ old('category_id') && old('category_id') == $mainCategory->id ? 'selected' : null }} value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
+                                       <option {{ old('category_id') && old('category_id') == $mainCategory->id || request()->has('cat-slug') && request()->get('cat-slug') == $mainCategory->slug? 'selected' : null }} value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
                                     @endif
                                 @endforeach
                             </select>
