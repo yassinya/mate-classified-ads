@@ -12181,6 +12181,12 @@ a.active {
   display: inline-block;
 }
 
+#thumb-preview {
+  position: absolute;
+  width: 500px;
+  display: none;
+}
+
 .post .badge {
   font-size: 11px;
   min-width: 20px;

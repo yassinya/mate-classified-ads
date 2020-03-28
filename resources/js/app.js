@@ -193,6 +193,18 @@ $(document).ready(function () {
         }
     })
 
+
+    // img previewing
+    $('.images img').on('mouseenter', function(evt){
+        var originalImg = $(this).data('full-size');
+        console.log(evt.pageX, evt.pageY);
+        $('#thumb-preview').attr('src', originalImg);
+        $('#thumb-preview').css({left: evt.pageX+30, top: evt.pageY-150}).show();
+        $(this).on('mouseleave', function(){
+            $('#thumb-preview').hide();
+        });
+    });
+
 });
 
 

@@ -40,8 +40,8 @@ if(! function_exists('uploadImg')){
         
         $image_versions_sizes = [
             'mini_thumbnail' => [
-            'width' => '120',
-            'height' => '120',
+            'width' => '80',
+            'height' => '80',
             ],
             'slider' => [
             'width' => '800',
@@ -53,7 +53,12 @@ if(! function_exists('uploadImg')){
         $generated_image_versions['original'] = $filenameToStore;
     
         foreach ($image_versions_sizes as $type => $size) {
-            $generated_image = ymake_thumbnails($filenameToStore, $size['width'], $size['height']);
+            $generated_image = null;
+            if($type == 'mini_thumbnail'){
+                $generated_image = ymake_thumbnails($filenameToStore, $size['width'], $size['height'], 0);
+            }else{
+                $generated_image = ymake_thumbnails($filenameToStore, $size['width'], $size['height']);
+            }
             $generated_image_versions[$type] = $generated_image;
         }
         return $generated_image_versions;
@@ -67,7 +72,7 @@ if(! function_exists('uploadImg')){
  * @param int height
  */
 if(! function_exists('ymake_thumbnails')){
-    function ymake_thumbnails($img_name,$boxWidth, $boxHeigth){
+    function ymake_thumbnails($img_name,$boxWidth, $boxHeigth, $padding = 20){
         
         // get the path of the saved image
         $originalImagePath = public_path('storage/images/'.$img_name);
@@ -85,7 +90,6 @@ if(! function_exists('ymake_thumbnails')){
         $vertical   = (($width < $height) ? true : false);
         $horizontal = (($width > $height) ? true : false);
         $square     = (($width = $height) ? true : false);
-        $padding = 20;
 
         if ($vertical) {
             // we'll resize width or height base on the box shape

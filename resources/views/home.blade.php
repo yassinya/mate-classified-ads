@@ -34,4 +34,5 @@
         <p class="text-center">No ads</p>
     @endif
 </section>
+<img src="" alt="" id="thumb-preview">
 @endsection

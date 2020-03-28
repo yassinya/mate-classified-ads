@@ -16,4 +16,5 @@
         @endif
     @endif
 </section>
+<img src="" alt="" id="thumb-preview">
 @endsection
