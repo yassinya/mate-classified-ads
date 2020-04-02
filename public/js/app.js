@@ -44030,9 +44030,9 @@ if ($('#dropzone').length) {
       console.log(response);
       this.createThumbnailFromUrl(file, response); //enable submit button again after img uploading
 
-      $('#ad-submission-form #submit-btn').prop('disabled', false);
       console.log(response);
-      window.location.href = response.adLink;
+      $('form').hide();
+      $('form').parent().append('<p class="text-center">Please check your email and click the link to confirm your ad</p>'); // $('#ad-submission-form #submit-btn').prop('disabled', false);
     },
     removedfile: function removedfile(file) {
       var _ref;
@@ -44106,8 +44106,8 @@ $(document).ready(function () {
     var categoryId = $('#ad-submission-form select[name="category_id"] option:selected').val();
     var cityId = $('#ad-submission-form select[name="city_id"] option:selected').val();
     var email = $('#ad-submission-form input[name="email"]').val();
-    var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val();
-    console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+    var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val(); // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+
     $('#errors-wrapper #error').remove();
 
     if (categoryId == '-') {
@@ -44144,8 +44144,9 @@ $(document).ready(function () {
         success: function success(response) {
           console.log(response);
 
-          if (response.adLink) {
-            window.location.href = response.adLink;
+          if (response.created) {
+            $('form').hide();
+            $('form').parent().append('<p class="text-center">Please check your email and click the link to confirm your ad</p>');
           }
         },
         error: function error(_error) {

@@ -23,6 +23,15 @@
                 @yield('breadcrumbs')
             </div>
         </div>
+        @if(session()->has('msg'))
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-primary">
+                        {{ session()->get('msg') }}
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <div class="container d-md-none mb-5">
         <a href="{{ route('ads.create') }}" class="btn btn-outline"> <i class="fas fa-plus"></i> Post</a>

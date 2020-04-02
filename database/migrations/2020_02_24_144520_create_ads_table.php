@@ -21,6 +21,8 @@ class CreateAdsTable extends Migration
             $table->string('email');
             $table->string('phone_number')->nullable();
             $table->timestamp('confirmed_at')->nullable();
+            $table->timestamp('reviewed_at')->nullable();
+            $table->boolean('is_suspended')->default(false);
             $table->integer('category_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

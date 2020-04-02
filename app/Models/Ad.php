@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Ad extends Model
 {
@@ -17,6 +18,19 @@ class Ad extends Model
         'city_id',
         'type_id',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('conrirmed', function (Builder $builder) {
+            $builder->whereNotNull('confirmed_at');
+        });
+
+        static::addGlobalScope('reviewed', function (Builder $builder) {
+            $builder->whereNotNull('reviewed_at');
+        });
+    }
 
     public function category()
     {

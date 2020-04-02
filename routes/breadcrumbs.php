@@ -23,6 +23,12 @@ Breadcrumbs::for('submit-ad', function ($trail) {
     $trail->push('Submit your ad', route('ads.create'));
 });
 
+// Home > ad confirmation
+Breadcrumbs::for('ad-confirmation', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Ad confirmation');
+});
+
 // Home > category
 Breadcrumbs::for('single-category', function ($trail, $category) {
     $trail->parent('home');

@@ -17,6 +17,7 @@ Route::get('/', 'PageController@showHomePage')->name('home');
 Route::get('/ads/submit', 'AdController@showAdSubmissionForm')->name('ads.create');
 Route::post('/ads/submit', 'AdController@postAd')->name('ads.create.post');
 Route::get('/ads/show/{slug}', 'AdController@showSingleAd')->name('ads.show.single');
+Route::get('/confirm/ad/{token}', 'AdConfirmationController@confirmAd')->name('confirm.ad');
 // categories
 Route::get('/categories/show/{slug}', 'CategoryController@showSingleCategory')->name('categories.show.single');
 

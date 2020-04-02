@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use App\Services\Slug;
 use App\Models\AdImage;
+use App\Events\AdCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +31,9 @@ class AdController extends Controller
             if($req->file){
                 $this->saveImages($req->file, $ad->id);
             }
-            return response()->json(['adLink' => route('ads.show.single', ['slug' => $ad->slug])]);
+            // dispatch ad creation event
+            event(new AdCreated($ad));
+            return response()->json(['created' => true]);
         }
         
         // reaching here means ad was not saved because something went wrong

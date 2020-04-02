@@ -50,9 +50,10 @@ if($('#dropzone').length){
             this.createThumbnailFromUrl( file, response);
 
             //enable submit button again after img uploading
-            $('#ad-submission-form #submit-btn').prop('disabled', false);
             console.log(response)
-            window.location.href = response.adLink;
+            $('form').hide();
+            $('form').parent().append('<p class="text-center">Please check your email and click the link to confirm your ad</p>')
+            // $('#ad-submission-form #submit-btn').prop('disabled', false);
         },
         removedfile: function(file) {
    
@@ -138,7 +139,7 @@ $(document).ready(function () {
         var email = $('#ad-submission-form input[name="email"]').val();
         var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val();
 
-        console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+        // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
 
         $('#errors-wrapper #error').remove()
         if(categoryId == '-'){
@@ -175,8 +176,9 @@ $(document).ready(function () {
                 },
                 success: function(response) {
                     console.log(response)
-                    if(response.adLink){
-                        window.location.href = response.adLink;
+                    if(response.created){
+                        $('form').hide();
+                        $('form').parent().append('<p class="text-center">Please check your email and click the link to confirm your ad</p>')
                     }
                 },
                 error: function(error) {
