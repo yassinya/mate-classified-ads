@@ -6,7 +6,13 @@
         <div class="row">
             <div class="col-lg-8 col-sm-12">
                 <div class="ad-details">
-                    <h2 id="title">{{ $ad->title }}</h2>
+                    <h2 id="title">{{ $ad->title }} 
+                    @auth
+                        @if ($ad->user_id == auth()->id())
+                            <a href="{{ route('ads.edit', ['slug' => $ad->slug]) }}"><i class="fas fa-pen" style="font-size: 19px;"></i></a>
+                        @endif
+                    @endauth                    
+                    </h2>
                     <div class="images">
                         <div class="slider-for">
                             @foreach ($ad->images as $img)

@@ -69,7 +69,7 @@
                         <span>{{ ucfirst(auth()->user()->first_name) }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{ route('account.ads') }}">My ads</a>
+                        <a class="dropdown-itemk" href="{{ route('account.ads') }}">My ads</a>
                         <a class="dropdown-item logout" href="#">Logout</a>
                     </div>
                 </div>
