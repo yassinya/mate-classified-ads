@@ -40,8 +40,8 @@ if(! function_exists('uploadImg')){
         
         $image_versions_sizes = [
             'mini_thumbnail' => [
-            'width' => '80',
-            'height' => '80',
+            'width' => '120',
+            'height' => '120',
             ],
             'slider' => [
             'width' => '800',

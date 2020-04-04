@@ -43985,9 +43985,9 @@ __webpack_require__(/*! slick-carousel/slick/slick */ "./node_modules/slick-caro
 
 
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
-dropzone__WEBPACK_IMPORTED_MODULE_0___default.a.autoDiscover = false;
+dropzone__WEBPACK_IMPORTED_MODULE_0___default.a.autoDiscover = false; // ad creation form
 
-if ($('#dropzone').length) {
+if ($('#ad-submission-form #dropzone').length) {
   var dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_0___default.a("#dropzone", {
     url: "/ads/submit",
     params: {
@@ -44011,6 +44011,7 @@ if ($('#dropzone').length) {
         });
       });
       this.on('errormultiple', function (files, response) {
+        $('#ad-submission-form #submit-btn').prop('disabled', false);
         console.log(response);
         var dropzoneFilesCopy = files.slice(0);
         dropzone.removeAllFiles();
@@ -44022,8 +44023,14 @@ if ($('#dropzone').length) {
 
           dropzone.addFile(file);
         });
-        showAdSubmissionFormErrors(response.validation);
-        $('#ad-submission-form #submit-btn').prop('disabled', false);
+
+        if (response.validation) {
+          showAdSubmissionFormErrors(response.validation);
+        } else {
+          // ad was created, but there was an internal error probably in ad creation event listeners
+          $('form').hide();
+          $('form').parent().html('<p class="text-center">There was an internal error</p>');
+        }
       });
     },
     success: function success(file, response) {
@@ -44032,9 +44039,82 @@ if ($('#dropzone').length) {
 
       console.log(response);
       $('form').hide();
-      $('form').parent().append('<p class="text-center">Please check your email and click the link to confirm your ad</p>'); // $('#ad-submission-form #submit-btn').prop('disabled', false);
+      $('form').parent().html('<p class="text-center">Please check your email and click the link to confirm your ad</p>'); // $('#ad-submission-form #submit-btn').prop('disabled', false);
     },
     removedfile: function removedfile(file) {
+      var _ref;
+
+      return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+    }
+  });
+} // editing ad form
+
+
+if ($('#ad-updating-form #dropzone').length) {
+  var adId = $('input[name="ad_id"]').val();
+  var updatingFormDropzone = new dropzone__WEBPACK_IMPORTED_MODULE_0___default.a("#dropzone", {
+    url: "/posts/images/upload/single",
+    params: {
+      _token: CSRF_TOKEN,
+      ad_id: adId
+    },
+    addRemoveLinks: true,
+    autoProcessQueue: true,
+    uploadMultiple: false,
+    parallelUploads: 1,
+    acceptedFiles: "image/*",
+    dictRemoveFile: "Remove",
+    dictDefaultMessage: "Click or drop images here",
+    init: function init() {
+      var thisDropzone = this;
+      $('#dropzone').html("<div class=\"loading text-center\" style=\"font-size:26px;\">\n            <i class=\"fa fa-spinner fa-spin\"></i>\n            </div>");
+      $.getJSON('/posts/images/for/' + adId, function (data) {
+        $('#dropzone .loading').remove(); // $('#img-dropzone .loading').remove();
+
+        $.each(data, function (key, file) {
+          thisDropzone.options.addedfile.call(thisDropzone, file);
+          thisDropzone.options.thumbnail.call(thisDropzone, file, file.url);
+          thisDropzone.emit('complete', file);
+          thisDropzone.files.push(file);
+        });
+      });
+    },
+    success: function success(file, response) {
+      console.log(response);
+      file.serverId = response.id;
+      this.createThumbnailFromUrl(file, response);
+      $('#errors-wrapper').html('<div class="alert alert-success" id="error">Successfully saved image</div>'); // $('#ad-submission-form #submit-btn').prop('disabled', false);
+    },
+    removedfile: function removedfile(file) {
+      var thisDropzone = this;
+      var name = file.name;
+      console.log(file.additionalInfo);
+      $.ajax({
+        type: 'POST',
+        url: '/posts/images/delete/single',
+        data: {
+          _token: CSRF_TOKEN,
+          img_id: file.serverId
+        },
+        dataType: "JSON",
+        success: function success(data) {
+          console.log(data);
+
+          if (data.status == 200) {
+            $('#errors-wrapper').html('<div class="alert alert-success" id="error">Successfully deleted image</div>');
+          }
+
+          if (data.status == 404) {
+            thisDropzone.options.addedfile.call(thisDropzone, file);
+            thisDropzone.options.thumbnail.call(thisDropzone, file, file.url);
+            thisDropzone.emit('complete', file);
+          }
+        },
+        error: function error(er) {
+          console.log(er);
+        }
+      });
+
       var _ref;
 
       return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
@@ -44098,6 +44178,60 @@ $(document).ready(function () {
     }
   }); // ad submission
 
+  $('#update-btn').on('click', function () {
+    var $this = this;
+    $($this).html('<i class="fa fa-spinner fa-spin"></i>Updating...');
+    $($this).prop('disabled', true);
+    console.log('updating ad...');
+    var title = $('#ad-updating-form input[name="title"]').val();
+    var description = $('#ad-updating-form textarea[name="description"]').val();
+    var typeId = $('#ad-updating-form select[name="type_id"] option:selected').val();
+    var categoryId = $('#ad-updating-form select[name="category_id"] option:selected').val();
+    var cityId = $('#ad-updating-form select[name="city_id"] option:selected').val();
+    var email = $('#ad-updating-form input[name="email"]').val();
+    var phoneNumber = $('#ad-updating-form input[name="phone_number"]').val();
+    var adId = $('#ad-updating-form input[name="ad_id"]').val(); // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+
+    $('#errors-wrapper #error').remove();
+    $.ajax({
+      url: "/ads/edit",
+      type: "post",
+      data: {
+        title: title,
+        description: description,
+        type_id: typeId,
+        category_id: categoryId,
+        city_id: cityId,
+        email: email,
+        phone_number: phoneNumber,
+        ad_id: adId,
+        _token: CSRF_TOKEN
+      },
+      success: function success(response) {
+        $($this).html('Update');
+        $($this).prop('disabled', false);
+        console.log(response);
+
+        if (response.updated) {
+          $('#errors-wrapper').html('<div class="alert alert-success" id="error">Successfully updated</div>');
+        }
+      },
+      error: function error(_error) {
+        $($this).html('Update');
+        $($this).prop('disabled', false);
+        console.log(_error);
+
+        if (_error.responseJSON.validation) {
+          showAdSubmissionFormErrors(_error.responseJSON.validation);
+        }
+
+        if (_error.responseJSON.error) {
+          // alert(error.responseJSON.error)
+          $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> ' + _error.responseJSON.error + '<br></div>');
+        }
+      }
+    });
+  });
   $('#ad-submission-form #submit-btn').on('click', function () {
     console.log('submitting');
     var title = $('#ad-submission-form input[name="title"]').val();
@@ -44149,16 +44283,16 @@ $(document).ready(function () {
             $('form').parent().append('<p class="text-center">Please check your email and click the link to confirm your ad</p>');
           }
         },
-        error: function error(_error) {
-          console.log(_error);
+        error: function error(_error2) {
+          console.log(_error2);
 
-          if (_error.responseJSON.validation) {
-            showAdSubmissionFormErrors(_error.responseJSON.validation);
+          if (_error2.responseJSON.validation) {
+            showAdSubmissionFormErrors(_error2.responseJSON.validation);
           }
 
-          if (_error.responseJSON.error) {
+          if (_error2.responseJSON.error) {
             // alert(error.responseJSON.error)
-            $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> ' + _error.responseJSON.error + '<br></div>');
+            $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> ' + _error2.responseJSON.error + '<br></div>');
           }
         }
       });
