@@ -7,7 +7,7 @@
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               @if (auth()->check())
                   <li class="nav-item active">
-                    <a class="nav-link" href="#">My ads</a>
+                    <a class="nav-link" href="{{ route('account.ads') }}">My ads</a>
                     <a class="nav-link logout" href="#">Logout</a>
                   </li>
               @else
@@ -69,6 +69,7 @@
                         <span>{{ ucfirst(auth()->user()->first_name) }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ route('account.ads') }}">My ads</a>
                         <a class="dropdown-item logout" href="#">Logout</a>
                     </div>
                 </div>

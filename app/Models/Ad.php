@@ -72,4 +72,18 @@ class Ad extends Model
 
         return $query;
     }
+
+    public function scopePending($query){
+        return $query->withoutGlobalScope('reviewed')
+                     ->whereNotNull('confirmed_at')
+                     ->where('is_suspended', false)
+                     ->whereNull('reviewed_at');
+    }
+
+    public function scopeApproved($query){
+        return $query->withoutGlobalScope('reviewed')
+                     ->whereNotNull('confirmed_at')
+                     ->where('is_suspended', false)
+                     ->whereNotNull('reviewed_at');
+    }
 }

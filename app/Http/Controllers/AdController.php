@@ -108,7 +108,10 @@ class AdController extends Controller
 
     public function showSingleAd($slug){
         $ad = Ad::whereSlug($slug)->with('category', 'category.ads')->first();
-        // TODO return 404
+        
+        if(! $ad){
+            abort(404);
+        }
 
         return view('ads.single-ad', ['ad' => $ad]);
     }
@@ -188,6 +191,26 @@ class AdController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function getLoggedInUserAds(){
+
+        $pendingAds = auth()->user()->ads()->with('images', 'images.sizes')
+                            ->pending()
+                            ->get();
+        $approvedAds = auth()->user()->ads()->with('images', 'images.sizes')
+                             ->approved()
+                             ->get();
+        $suspendedAds = auth()->user()->ads()->with('images', 'images.sizes')
+                             ->whereIsSuspended(true)
+                             ->get();
+                            // dd($pendingAds);
+
+        return view('ads.my-ads', [
+            'pendingAds' => $pendingAds,
+            'approvedAds' => $approvedAds,
+            'suspendedAds' => $suspendedAds,
+        ]);
     }
 
     protected function saveImages($files, $adId){

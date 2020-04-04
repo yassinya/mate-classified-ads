@@ -42,5 +42,6 @@ Route::middleware(['auth'])->group( function ()
     Route::post('/posts/images/upload/single', 'AdController@uploadSingleImage')->name('ads.images.upload.single.post');
     Route::post('/posts/images/delete/single', 'AdController@deleteSingleImage')->name('ads.images.delete.single.post');
     Route::get('/posts/images/for/{adId}', 'AdController@getAdImages')->name('ads.images.get');
+    Route::get('/my-ads', 'AdController@getLoggedInUserAds')->name('account.ads');
 });
 
