@@ -16,12 +16,12 @@
                                 @if($mainCategory->children->count() > 0)
                                     @foreach($mainCategory->children as $subCategory)
                                         @foreach ($subCategory->ads as $ad)
-                                            @include('partials.ad')
+                                            @include('partials.ad', ['ad' => $ad])
                                         @endforeach
                                     @endforeach
                                 @else
                                     @foreach ($mainCategory->ads as $ad)
-                                        @include('partials.ad')
+                                        @include('partials.ad', ['ad' => $ad])
                                     @endforeach
                                 @endif
                             </div>
