@@ -30,6 +30,7 @@ class RegisterController extends Controller
         $user = $this->createUser($req->all());
         // find & associate previously posted ads as guest by this user
         $this->linkUserToAds($user);
+        $user->assignRole('user');
 
         // dispatch event to send verification email etc
         // TODO
@@ -63,7 +64,10 @@ class RegisterController extends Controller
     protected function linkUserToAds(User $user){
 
         // get ads which have this user's email AND haven't been assigned to a user yet
-        $userAds = Ad::whereEmail($user->email)->whereNull('user_id')->get();
+        $userAds = Ad::whereEmail($user->email)
+                     ->withoutGlobalScopes(['conrirmed', 'reviewed'])
+                     ->whereNull('user_id')
+                     ->get();
 
         if(! $userAds){
             return;

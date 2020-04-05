@@ -22,4 +22,12 @@ class PageController extends Controller
 
         return view('home', ['categoriesWithAds' => $categoriesWithAds]);
     }
+
+    public function showDashboard(){
+        $pendingAds = Ad::with('images', 'images.sizes')->pending()->get();
+
+        return view('admin.home', [
+            'pendingAds' => $pendingAds,
+        ]);
+    }
 }

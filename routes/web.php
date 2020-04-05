@@ -45,3 +45,9 @@ Route::middleware(['auth'])->group( function ()
     Route::get('/my-ads', 'AdController@getLoggedInUserAds')->name('account.ads');
 });
 
+// Admin routes
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/dashboard', 'PageController@showDashboard')->name('admin');
+    Route::post('/dashboard/review/ad', 'AdController@reviewAd')->name('admin.review.ad');
+    Route::get('/dashboard/toggle-suspension/ad/{adId}/{suspended}', 'AdController@toggleAdSuspension')->name('admin.toggle-suspension.ad');
+});

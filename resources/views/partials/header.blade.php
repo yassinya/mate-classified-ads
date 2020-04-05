@@ -8,6 +8,8 @@
               @if (auth()->check())
                   <li class="nav-item active">
                     <a class="nav-link" href="{{ route('account.ads') }}">My ads</a>
+                    <a class="nav-link" href="{{ route('admin') }}">Dashboard</a>
+                    <hr>
                     <a class="nav-link logout" href="#">Logout</a>
                   </li>
               @else
@@ -69,7 +71,11 @@
                         <span>{{ ucfirst(auth()->user()->first_name) }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-itemk" href="{{ route('account.ads') }}">My ads</a>
+                        <a class="dropdown-item" href="{{ route('account.ads') }}">My ads</a>
+                        @if (auth()->user()->hasRole('admin'))
+                            <a class="dropdown-item" href="{{ route('admin') }}">Dashboard</a>
+                        @endif
+                        <hr>
                         <a class="dropdown-item logout" href="#">Logout</a>
                     </div>
                 </div>

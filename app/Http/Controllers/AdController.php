@@ -107,7 +107,15 @@ class AdController extends Controller
     }
 
     public function showSingleAd($slug){
-        $ad = Ad::whereSlug($slug)->with('category', 'category.ads')->first();
+
+        if(auth()->check() && auth()->user()->hasRole('admin')){
+            $ad = Ad::whereSlug($slug)
+                     ->with('category', 'category.ads')
+                     ->withoutGlobalScopes(['confirmed', 'reviewed'])
+                     ->first();
+        }else{
+            $ad = Ad::whereSlug($slug)->with('category', 'category.ads')->first();
+        }
         
         if(! $ad){
             abort(404);
@@ -211,6 +219,38 @@ class AdController extends Controller
             'approvedAds' => $approvedAds,
             'suspendedAds' => $suspendedAds,
         ]);
+    }
+
+    public function reviewAd(Request $req)
+    {
+        $ad = Ad::whereId($req->ad_id)
+                ->withoutGlobalScopes(['reviewed', 'confirmed'])
+                ->first();
+
+        $ad->reviewed_at = now();
+        $ad->is_suspended = $req->suspend;
+        $ad->save();
+        if($req->suspend == 0){
+            return redirect()->back()->with(['success-msg' => 'successfully approved ad']);
+        }else{
+            return redirect()->back()->with(['success-msg' => 'successfully rejected and suspended ad']);
+        }
+    }
+
+    public function toggleAdSuspension($adId, $suspend)
+    {
+        $ad = Ad::whereId($adId)
+                ->withoutGlobalScopes(['reviewed', 'confirmed'])
+                ->first();
+
+        $ad->is_suspended = $suspend;
+        $ad->save();
+
+        if($suspend == 0){
+            return redirect()->back()->with(['success-msg' => 'successfully unsuspended ad']);
+        }else{
+            return redirect()->back()->with(['success-msg' => 'successfully suspended ad']);
+        }
     }
 
     protected function saveImages($files, $adId){
