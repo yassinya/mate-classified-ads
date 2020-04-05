@@ -12154,11 +12154,11 @@ a.active {
 
 .category-wrapper .category-header {
   /* background: #e91e63; */
-  color: #fff;
   padding: 6px 15px;
 }
 
 .category-wrapper .category-header h6 {
+  color: #fff;
   margin: 0;
 }
 

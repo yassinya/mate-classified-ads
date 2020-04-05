@@ -10,7 +10,7 @@
                     <div class="grid-item">
                         <div class="category-wrapper">
                             <div class="category-header" style="background: {{ $mainCategory->color_hex }}">
-                                <h6>{{ $mainCategory->name }}</h6>
+                                <a href="{{ route('categories.show.single', ['slug' => $mainCategory->slug]) }}"><h6>{{ $mainCategory->name }}</h6></a>
                             </div>
                             <div class="category-posts">
                                 @if($mainCategory->children->count() > 0)
