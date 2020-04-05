@@ -1,5 +1,5 @@
 @extends('templates.base')
-{{-- @section('breadcrumbs', Breadcrumbs::render('single-category', ) ) --}}
+@section('breadcrumbs', Breadcrumbs::render('my-ads') )
 
 @section('content')
 <section class="container">
