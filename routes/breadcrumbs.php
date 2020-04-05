@@ -37,6 +37,11 @@ Breadcrumbs::for('single-category', function ($trail, $category) {
 
 // Home > category > ad
 Breadcrumbs::for('ad', function ($trail, $ad) {
+    $title = mb_substr($ad->title, 0, 250);
+    if(strlen($ad->title) > 250){
+        $title.'...';
+    }
+
     $trail->parent('single-category', $ad->category);
-    $trail->push($ad->title, route('ads.show.single', ['slug' => $ad->slug]));
+    $trail->push($title, route('ads.show.single', ['slug' => $ad->slug]));
 });
