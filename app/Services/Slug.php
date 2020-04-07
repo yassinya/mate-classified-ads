@@ -36,8 +36,7 @@ class Slug
     {
         return $model->select('slug')->where('slug', 'like', $slug.'%')
             ->where('id', '<>', $id)
-            ->withoutGlobalScope('conrirmed')
-            ->withoutGlobalScope('reviewed')
+            ->withoutGlobalScopes(['reviewed', 'suspended', 'conrirmed'])
             ->get();
 
     }

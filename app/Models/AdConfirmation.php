@@ -9,7 +9,6 @@ class AdConfirmation extends Model
     public function ad()
     {
         return $this->belongsTo('App\Models\Ad')
-                    ->withoutGlobalScope('reviewed')
-                    ->withoutGlobalScope('conrirmed');
+                    ->withoutGlobalScopes(['reviewed', 'conrirmed']);
     }
 }

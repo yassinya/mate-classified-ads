@@ -65,7 +65,7 @@ class RegisterController extends Controller
 
         // get ads which have this user's email AND haven't been assigned to a user yet
         $userAds = Ad::whereEmail($user->email)
-                     ->withoutGlobalScopes(['conrirmed', 'reviewed'])
+                     ->withoutGlobalScopes(['conrirmed', 'reviewed', 'suspended'])
                      ->whereNull('user_id')
                      ->get();
 

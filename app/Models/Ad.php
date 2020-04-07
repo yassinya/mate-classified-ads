@@ -30,6 +30,10 @@ class Ad extends Model
         static::addGlobalScope('reviewed', function (Builder $builder) {
             $builder->whereNotNull('reviewed_at');
         });
+
+        static::addGlobalScope('suspended', function (Builder $builder) {
+            $builder->where('is_suspended', 0);
+        });
     }
 
     public function category()
@@ -74,16 +78,18 @@ class Ad extends Model
     }
 
     public function scopePending($query){
-        return $query->withoutGlobalScope('reviewed')
-                     ->whereNotNull('confirmed_at')
-                     ->where('is_suspended', false)
+        return $query->withoutGlobalScopes(['reviewed'])
                      ->whereNull('reviewed_at');
     }
 
     public function scopeApproved($query){
-        return $query->withoutGlobalScope('reviewed')
+        return $query->withoutGlobalScopes(['reviewed'])
                      ->whereNotNull('confirmed_at')
-                     ->where('is_suspended', false)
                      ->whereNotNull('reviewed_at');
+    }
+
+    public function scopeSuspended($query){
+        return $query->withoutGlobalScopes(['suspended'])
+                     ->where('is_suspended', true);
     }
 }
