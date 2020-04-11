@@ -17,7 +17,7 @@ class CategoryComposer
     public function __construct()
     {
         $this->categories = Category::whereNull('parent_id')
-                                    ->with('children', 'ads')
+                                    ->with('children', 'children.ads','ads')
                                     ->get();
     }
 

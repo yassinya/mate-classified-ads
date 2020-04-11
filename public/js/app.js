@@ -44321,6 +44321,10 @@ function showAdSubmissionFormErrors(errors) {
   });
   $('#errors-wrapper #error').html(elements);
 }
+
+$('.list-group-item').on('click', function () {
+  $('.fa', this).toggleClass('fa-caret-right').toggleClass('fa-caret-down');
+});
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

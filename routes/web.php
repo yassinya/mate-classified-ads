@@ -46,8 +46,14 @@ Route::middleware(['auth'])->group( function ()
 });
 
 // Admin routes
-Route::group(['middleware' => ['role:admin']], function () {
-    Route::get('/dashboard', 'PageController@showDashboard')->name('admin');
-    Route::post('/dashboard/review/ad', 'AdController@reviewAd')->name('admin.review.ad');
-    Route::get('/dashboard/toggle-suspension/ad/{adId}/{suspended}', 'AdController@toggleAdSuspension')->name('admin.toggle-suspension.ad');
+Route::group(['middleware' => ['role:admin'], 'prefix' => 'dashboard'], function () {
+    Route::get('/overview', 'PageController@showDashboard')->name('admin');
+    Route::post('/review/ad', 'AdController@reviewAd')->name('admin.review.ad');
+    Route::get('/toggle-suspension/ad/{adId}/{suspended}', 'AdController@toggleAdSuspension')->name('admin.toggle-suspension.ad');
+    // categories
+    Route::get('/categories', 'CategoryController@showCategoriesManagement')->name('admin.categories');
+    Route::post('/categories/create', 'CategoryController@createCategory')->name('admin.categories.create.submit');
+    Route::get('/categories/update/{id}', 'CategoryController@showEditCategoryForm')->name('admin.categories.update');
+    Route::post('/categories/delete', 'CategoryController@deleteCategory')->name('admin.categories.delete');
+    Route::post('/categories/update', 'CategoryController@updateCategory')->name('admin.categories.update.submit');
 });

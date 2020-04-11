@@ -8,7 +8,7 @@ html {
     min-height: 100%;
 }
 
-body{
+body {
     background: #f3f3f3;
     /* background: #eee; */
     margin: 0 0 100px;
@@ -16,192 +16,222 @@ body{
 }
 
 a {
-    &:hover, &.active {
+
+    &:hover,
+    &.active {
         text-decoration: none;
     }
 }
-
 
 .ad-details {
     background: #fff;
     padding: 29px;
 
-    #title{
+    #title {
         margin-bottom: 17px;
         font-size: 24px;
     }
-    .images{
+
+    .images {
+
         // padding: 0 150px;
-        .slider-for{
-            img{
+        .slider-for {
+            img {
                 margin: auto;
             }
         }
-        .slider-nav{
-            img{
-                height: 225px;;
+
+        .slider-nav {
+            img {
+                height: 225px;
+                ;
                 width: 100%;
             }
         }
-        .slick-prev:before, .slick-next:before{
+
+        .slick-prev:before,
+        .slick-next:before {
             color: #000;
         }
+
         margin-bottom: 18px;
     }
-    .footer{
-        div:not(:last-child){
+
+    .footer {
+        div:not(:last-child) {
             margin-right: 30px;
         }
+
         font-size: 13px;
         color: #151515;
     }
 }
 
-.card{
-    .card-body{
-        p{
+.card {
+    .card-body {
+        p {
             font-size: 13px;
         }
     }
 }
 
-.dropzone{
+.dropzone {
     border: #007bff 1px solid;
     margin: 16px;
 }
 
-.dropzone .dz-preview{
+.dropzone .dz-preview {
     margin: 6px;
 }
 
-.grid-item { 
+.grid-item {
     width: calc(25% - 10px);
     padding: 0px 5px;
 }
 
-.grid-item--width2 { width: 400px; }
+.grid-item--width2 {
+    width: 400px;
+}
 
-.breadcrumb{
+.breadcrumb {
     background: #fff0;
 }
 
-.badge{
-    &.ad-type{
+.badge {
+    &.ad-type {
         min-width: 50px !important;
     }
 }
 
-.filter-ads{
+.filter-ads {
     display: none;
     padding: 10px;
 }
 
-.btn{
+.btn {
     min-width: 80px !important;
-    &.btn-outline{
+
+    &.btn-outline {
         background: none;
         border: 1px solid #007bff;
         color: #007bff;
     }
 }
 
-.form-wrapper{
+.form-wrapper {
     background: #fff;
     padding: 20px;
 }
 
-.nav-link{
+.nav-link {
     padding: 4px 8px;
     font-size: 13px;
     margin-right: 3px;
     min-width: 60px;
 }
-.header, .category-wrapper{
+
+.header,
+.category-wrapper {
     background: #fff;
     padding: 10px 5px;
 }
-.header{
+
+.header {
     padding: 10px 5px;
 }
-.header span{
+
+.header span {
     font-size: 12px;
 }
-.filters p{
+
+.filters p {
     padding: 0;
     margin: 0;
 }
-.category-wrapper{
+
+.category-wrapper {
     background: #fff;
     padding: 0;
     margin-top: 3rem;
 }
-.category-wrapper .category-header{
+
+.category-wrapper .category-header {
     /* background: #e91e63; */
     color: #fff;
     padding: 6px 15px;
 }
-.category-wrapper .category-header h6{
+
+.category-wrapper .category-header h6 {
     margin: 0;
+    color: #fff;
 }
-.category-posts{
+
+.category-posts {
     padding: 6px 15px;
 }
-.post{
+
+.post {
     margin-bottom: 10px;
     margin-top: 10px;
-    background-color: #fff; 
+    background-color: #fff;
     padding: 5px;
-    .footer{
-        .fas{
+
+    .footer {
+        .fas {
             font-size: 10px;
         }
-        .contact{
-            span{
+
+        .contact {
+            span {
                 display: inline-block;
             }
         }
     }
 }
 
-#thumb-preview{
-    position:absolute;
-    width:500px;
+#thumb-preview {
+    position: absolute;
+    width: 500px;
     // height:300px;
     display: none;
 }
 
-.post .badge{
+.post .badge {
     font-size: 11px;
     min-width: 20px;
 }
-.post .post-title{
+
+.post .post-title {
     font-size: 14px;
 }
-.post .post-content{
+
+.post .post-content {
     font-size: 14px;
     margin: 0;
     overflow-wrap: break-word;
 }
-.post .post-content .post-images img{
+
+.post .post-content .post-images img {
     width: 50px;
     height: 50px;
     margin-right: 2px;
 }
 
 
-.single-category{
-    .post{
+.single-category {
+    .post {
         padding: 15px;
         margin-bottom: 14px;
-        .footer{
-            .fas{
+
+        .footer {
+            .fas {
                 font-size: 10px;
             }
         }
     }
 }
 
-footer{
+footer {
     background-color: #fff;
     position: absolute;
     left: 0;
@@ -212,54 +242,99 @@ footer{
 }
 
 
+.just-padding {
+    padding: 15px;
+}
 
-@media (max-width: 390px) { 
-    .ad-details{
-        .title{
+.list-group.list-group-root {
+    padding: 0;
+    overflow: hidden;
+}
 
-        }
-        .images{
-            .slider-nav{
-                img{
+.list-group.list-group-root .list-group {
+    margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+    border-radius: 0;
+    border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root>.list-group-item:first-child {
+    border-top-width: 0;
+}
+
+.list-group.list-group-root>.list-group>.list-group-item {
+    padding-left: 30px;
+}
+
+.list-group.list-group-root>.list-group>.list-group>.list-group-item {
+    padding-left: 45px;
+}
+
+.list-group-item .fa {
+    margin-right: 5px;
+}
+
+.list-group-item .edit-btn {
+    margin-right: 12px;
+}
+
+.collapse {
+    display: none;
+
+    &.show {
+        display: block;
+    }
+}
+
+@media (max-width: 390px) {
+    .ad-details {
+        .title {}
+
+        .images {
+            .slider-nav {
+                img {
                     height: 95px;
                 }
             }
         }
-        .footer{
+
+        .footer {
             flex-direction: column;
         }
     }
 
-    .grid-item{
-        .grid-item{
+    .grid-item {
+        .grid-item {
             width: calc(100% - 10px);
         }
     }
- }
+}
 
 
-@media (min-width: 250px) { 
-    .grid-item{
+@media (min-width: 250px) {
+    .grid-item {
         width: calc(100% - 10px);
     }
 }
 
-@media (min-width: 576px) { 
-    .grid-item{
+@media (min-width: 576px) {
+    .grid-item {
         width: calc(50% - 10px);
     }
- }
+}
 
 
-@media (min-width: 768px) { 
-    .grid-item{
+@media (min-width: 768px) {
+    .grid-item {
         width: calc(33% - 10px);
     }
 }
 
 
-@media (min-width: 992px) { 
-    .grid-item{
+@media (min-width: 992px) {
+    .grid-item {
         width: calc(25% - 10px);
     }
 }

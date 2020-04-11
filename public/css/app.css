@@ -12154,12 +12154,13 @@ a.active {
 
 .category-wrapper .category-header {
   /* background: #e91e63; */
+  color: #fff;
   padding: 6px 15px;
 }
 
 .category-wrapper .category-header h6 {
-  color: #fff;
   margin: 0;
+  color: #fff;
 }
 
 .category-posts {
@@ -12225,6 +12226,52 @@ footer {
   height: 60px;
   width: 100%;
   overflow: hidden;
+}
+
+.just-padding {
+  padding: 15px;
+}
+
+.list-group.list-group-root {
+  padding: 0;
+  overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+  margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+  border-radius: 0;
+  border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+  border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+  padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+  padding-left: 45px;
+}
+
+.list-group-item .fa {
+  margin-right: 5px;
+}
+
+.list-group-item .edit-btn {
+  margin-right: 12px;
+}
+
+.collapse {
+  display: none;
+}
+
+.collapse.show {
+  display: block;
 }
 
 @media (max-width: 390px) {

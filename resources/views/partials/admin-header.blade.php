@@ -8,6 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Overview</a></li>
+            <li class="nav-item"><a href="{{ route('admin.categories') }}" class="nav-link">Categories</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
             @if (auth()->check())
