@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    @include('partials.admin-header')
     @yield('content')
 
     <script src="{{ mix('js/app.js') }}"></script>
