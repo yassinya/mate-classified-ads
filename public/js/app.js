@@ -44234,6 +44234,9 @@ $(document).ready(function () {
   });
   $('#ad-submission-form #submit-btn').on('click', function () {
     console.log('submitting');
+    var $this = this;
+    $($this).html('<i class="fa fa-spinner fa-spin"></i>Submitting...');
+    $($this).prop('disabled', true);
     var title = $('#ad-submission-form input[name="title"]').val();
     var description = $('#ad-submission-form textarea[name="description"]').val();
     var typeId = $('#ad-submission-form select[name="type_id"] option:selected').val();
@@ -44277,6 +44280,8 @@ $(document).ready(function () {
         },
         success: function success(response) {
           console.log(response);
+          $($this).html('Submit');
+          $($this).prop('disabled', false);
 
           if (response.created) {
             $('form').hide();
@@ -44285,6 +44290,8 @@ $(document).ready(function () {
         },
         error: function error(_error2) {
           console.log(_error2);
+          $($this).html('Submit');
+          $($this).prop('disabled', false);
 
           if (_error2.responseJSON.validation) {
             showAdSubmissionFormErrors(_error2.responseJSON.validation);

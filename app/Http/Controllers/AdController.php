@@ -185,7 +185,6 @@ class AdController extends Controller
                               ->with('sizes')
                               ->get();
         $image_sizes_collections = $images->pluck('sizes');
-        sleep(2);
         $response = [];
         foreach ($image_sizes_collections as $key => $image_sizes_collection) {
             foreach ($image_sizes_collection->where('type', 'mini_thumbnail') as $key => $image_size) {

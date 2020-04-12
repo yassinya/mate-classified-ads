@@ -67,7 +67,7 @@
                         </div>
                         {{ csrf_field() }}
                         <div id="dropzone" class="dropzone"></div>             
-                        <button type="button" id="submit-btn" class="btn btn-primary">Post</button>
+                        <button type="button" id="submit-btn" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

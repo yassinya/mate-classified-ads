@@ -274,6 +274,9 @@ $(document).ready(function () {
     
     $('#ad-submission-form #submit-btn').on('click', function() {
         console.log('submitting')
+        var $this = this;
+        $($this).html('<i class="fa fa-spinner fa-spin"></i>Submitting...')
+        $($this).prop('disabled', true)
         var title = $('#ad-submission-form input[name="title"]').val();
         var description = $('#ad-submission-form textarea[name="description"]').val();
         var typeId = $('#ad-submission-form select[name="type_id"] option:selected').val();
@@ -319,6 +322,8 @@ $(document).ready(function () {
                 },
                 success: function(response) {
                     console.log(response)
+                    $($this).html('Submit')
+                    $($this).prop('disabled', false)
                     if(response.created){
                         $('form').hide();
                         $('form').parent().append('<p class="text-center">Please check your email and click the link to confirm your ad</p>')
@@ -326,6 +331,8 @@ $(document).ready(function () {
                 },
                 error: function(error) {
                     console.log(error)
+                    $($this).html('Submit')
+                    $($this).prop('disabled', false)
                     if(error.responseJSON.validation){
                         showAdSubmissionFormErrors(error.responseJSON.validation);
                     }
