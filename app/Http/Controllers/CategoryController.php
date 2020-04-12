@@ -92,11 +92,19 @@ class CategoryController extends Controller
 
     public function deleteCategory(Request $req){
 
-        $cat =  Category::whereId($req->category_id)->with('children')->first();
-        // delete and unlink its children categories
+        $cat =  Category::whereId($req->category_id)
+                        ->with(['children', 'ads' => function($q){
+                            $q->withoutGlobalScopes(['reviewed', 'suspended', 'conrirmed']);
+                        }])->first();
+        // delete and unlink its children categories/ads
         foreach ($cat->children as $c) {
             $c->parent_id = null;
             $c->save();
+        }
+
+        foreach ($cat->ads as $ad) {
+            $ad->category_id = null;
+            $ad->save();
         }
 
         $cat->delete();

@@ -69,9 +69,11 @@
                         <div>
                             <span><i class="fas fa-clock"></i> {{ caRelativeDate($ad->created_at) }}</span>
                         </div>
-                        <div>
-                            <span><i class="fas fa-map"></i> {{ $ad->city->name }}</span>
-                        </div>
+                        @if($ad->city)
+                            <div>
+                                <span><i class="fas fa-map"></i> {{ $ad->city->name }}</span>
+                            </div>
+                        @endif
                         <div>
                             <span><i class="fas fa-envelope"></i> {{ $ad->email }}</span>
                         </div>
@@ -83,23 +85,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
-                @php
-                    $similarAds = $ad->category->ads->where('id', '!=', $ad->id);
-                @endphp
-                @if($similarAds->count() > 0)
-                    <div class="card">
-                        <div class="card-header">
-                            <h6 class="m-0 font-weight-bold">Similar ads</h6>
+            @if($ad->category)
+                <div class="col-lg-4 col-sm-12">
+                    @php
+                        $similarAds = $ad->category->ads->where('id', '!=', $ad->id);
+                    @endphp
+                    @if($similarAds->count() > 0)
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="m-0 font-weight-bold">Similar ads</h6>
+                            </div>
+                            <div class="card-body">
+                                @foreach ($similarAds as $similarAd)
+                                    <p><a href="{{ route('ads.show.single', ['slug' => $similarAd->slug]) }}">{{ mb_substr($similarAd->title, 0, 100) }} </a> {{ caRelativeDate($similarAd->created_at) }}</p>
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="card-body">
-                            @foreach ($similarAds as $similarAd)
-                                <p><a href="{{ route('ads.show.single', ['slug' => $similarAd->slug]) }}">{{ mb_substr($similarAd->title, 0, 100) }} </a> {{ caRelativeDate($similarAd->created_at) }}</p>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-            </div>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 

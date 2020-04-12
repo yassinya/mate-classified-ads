@@ -38,7 +38,7 @@
                                 <option value="-" selected>Pick a category</option>
                                 @foreach ($categories as $mainCategory)
                                     @if ($mainCategory->children->count() > 0)
-                                       <optgroup label="{{ $mainCategory }}">
+                                       <optgroup label="{{ $mainCategory->name }}">
                                            @foreach ($mainCategory->children as $subCategory)                                            
                                                <option {{ old('category_id') && old('category_id') == $subCategory->id || request()->has('cat-slug') && request()->get('cat-slug') == $subCategory->slug ? 'selected' : null }} value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
                                            @endforeach

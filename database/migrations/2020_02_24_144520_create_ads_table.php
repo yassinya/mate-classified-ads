@@ -23,10 +23,10 @@ class CreateAdsTable extends Migration
             $table->timestamp('confirmed_at')->nullable();
             $table->timestamp('reviewed_at')->nullable();
             $table->boolean('is_suspended')->default(false);
-            $table->integer('category_id');
+            $table->integer('category_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('city_id');
+            $table->integer('city_id')->nullable();
             $table->integer('type_id');
             $table->timestamps();
 

@@ -58,4 +58,18 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'dashboard'], function
     Route::post('/categories/update', 'CategoryController@updateCategory')->name('admin.categories.update.submit');
     // Users
     Route::get('/users', 'UserController@showUsers')->name('admin.users');
+    // Regions
+    Route::get('/regions', 'RegionController@showRegionsManagement')->name('admin.regions');
+    Route::get('/regions/update/{id}', 'RegionController@showEditRegionForm')->name('admin.regions.update');
+    Route::post('/regions/update', 'RegionController@updateRegion')->name('admin.regions.update.submit');
+    Route::post('/regions/create', 'RegionController@createRegion')->name('admin.regions.create.submit');
+    Route::post('/regions/delete', 'RegionController@deleteRegion')->name('admin.regions.delete');
+    Route::get('/regions/{id}', 'RegionController@showRegion')->name('admin.regions.show');
+    // City
+    Route::get('/cities/update/{id}', 'CityController@showEditCityForm')->name('admin.cities.update');
+    Route::post('/cities/update/', 'CityController@updateCity')->name('admin.cities.update.submit');
+    Route::post('/cities/create', 'CityController@createCity')->name('admin.cities.create.submit');
+    Route::post('/cities/delete', 'CityController@deleteCity')->name('admin.cities.delete');
+
+
 });

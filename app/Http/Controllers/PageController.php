@@ -14,13 +14,14 @@ class PageController extends Controller
     {
         $filters = $req->only(['region', 'city']);
         $categoriesWithAds = Category::whereNull('parent_id')
-                                     ->whereHas('ads', function($q) use($filters){
+                                     ->with(['childrenAds' => function($q) use($filters){
                                          $q->filter($filters);
-                                     })
-                                     ->with('children', 'ads')
+                                     },
+                                     'ads' => function($q) use($filters){
+                                        $q->filter($filters);
+                                     }])
                                      ->get();
 
-        // TODO return 404
 
         return view('home', ['categoriesWithAds' => $categoriesWithAds]);
     }

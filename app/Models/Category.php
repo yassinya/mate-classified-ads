@@ -16,6 +16,11 @@ class Category extends Model
         return $this->hasMany('App\Models\Category', 'parent_id');
     }
 
+    public function childrenAds()
+    {
+        return $this->hasManyThrough('App\Models\Ad', 'App\Models\Category', 'parent_id');
+    }
+
     public function ads()
     {
         return $this->hasMany('App\Models\Ad');
