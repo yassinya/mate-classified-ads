@@ -56,4 +56,6 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'dashboard'], function
     Route::get('/categories/update/{id}', 'CategoryController@showEditCategoryForm')->name('admin.categories.update');
     Route::post('/categories/delete', 'CategoryController@deleteCategory')->name('admin.categories.delete');
     Route::post('/categories/update', 'CategoryController@updateCategory')->name('admin.categories.update.submit');
+    // Users
+    Route::get('/users', 'UserController@showUsers')->name('admin.users');
 });
