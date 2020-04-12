@@ -285,7 +285,7 @@ $(document).ready(function () {
         var email = $('#ad-submission-form input[name="email"]').val();
         var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val();
 
-        // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+        console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
 
         $('#errors-wrapper #error').remove()
         if(categoryId == '-'){

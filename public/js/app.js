@@ -44243,8 +44243,8 @@ $(document).ready(function () {
     var categoryId = $('#ad-submission-form select[name="category_id"] option:selected').val();
     var cityId = $('#ad-submission-form select[name="city_id"] option:selected').val();
     var email = $('#ad-submission-form input[name="email"]').val();
-    var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val(); // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
-
+    var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val();
+    console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
     $('#errors-wrapper #error').remove();
 
     if (categoryId == '-') {

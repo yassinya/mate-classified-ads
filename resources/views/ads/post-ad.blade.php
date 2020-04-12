@@ -59,12 +59,14 @@
                                @endforeach
                            </select>
                         </div>
-                        <div class="form-group">
-                            <input type="email" value="{{ old('email') }}" required name="email" id="email" placeholder="Enter your email address" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" value="{{ old('phone_number') }}" name="phone_number" id="phone-number" placeholder="Enter a phone number (Optional)" class="form-control">
-                        </div>
+                        @if(! auth()->check())
+                            <div class="form-group">
+                                <input type="email" value="{{ old('email') }}" required name="email" id="email" placeholder="Enter your email address" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" value="{{ old('phone_number') }}" name="phone_number" id="phone-number" placeholder="Enter a phone number (Optional)" class="form-control">
+                            </div>
+                        @endif
                         {{ csrf_field() }}
                         <div id="dropzone" class="dropzone"></div>             
                         <button type="button" id="submit-btn" class="btn btn-primary">Submit</button>

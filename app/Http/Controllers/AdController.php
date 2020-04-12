@@ -61,11 +61,16 @@ class AdController extends Controller
     }
 
     protected function validator(array $data){
-        return Validator::make($data, [
+        $rules = [
             'title' => ['required', 'string',],
             'description' => ['required', 'string'],
-            'email' => ['required', 'string', 'email'],
-        ]);
+        ];
+        // require email only if user is not logged in
+        if(! auth()->check()){
+            $rules['email'] = ['required', 'string', 'email'];
+        }
+
+        return Validator::make($data, $rules);
     }
 
     protected function createAd(array $data){
@@ -81,8 +86,8 @@ class AdController extends Controller
             'title' => $data['title'],
             'slug' => $slug,
             'description' => $data['description'],
-            'phone_number' => $data['phone_number'],
-            'email' => $data['email'],
+            'phone_number' => isset($data['phone_number']) ? $data['phone_number'] : null,
+            'email' => auth()->check() ? auth()->user()->email : $data['email'],
             'category_id' => $data['category_id'],
             'city_id' => $data['city_id'],
             'user_id' => $userId,
