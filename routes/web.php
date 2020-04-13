@@ -58,6 +58,8 @@ Route::group(['middleware' => ['role:admin'], 'prefix' => 'dashboard'], function
     Route::post('/categories/update', 'CategoryController@updateCategory')->name('admin.categories.update.submit');
     // Users
     Route::get('/users', 'UserController@showUsers')->name('admin.users');
+    // Users
+    Route::get('/ads', 'AdController@showAds')->name('admin.ads');
     // Regions
     Route::get('/regions', 'RegionController@showRegionsManagement')->name('admin.regions');
     Route::get('/regions/update/{id}', 'RegionController@showEditRegionForm')->name('admin.regions.update');

@@ -11,6 +11,7 @@
                 <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Overview</a></li>
                 <li class="nav-item"><a href="{{ route('admin.categories') }}" class="nav-link">Categories</a></li>
                 <li class="nav-item"><a href="{{ route('admin.users') }}" class="nav-link">Users</a></li>
+                <li class="nav-item"><a href="{{ route('admin.ads') }}" class="nav-link">Ads</a></li>
                 <li class="nav-item"><a href="{{ route('admin.regions') }}" class="nav-link">Regions & Cities</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">

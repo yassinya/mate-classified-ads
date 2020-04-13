@@ -14,6 +14,16 @@ class AdController extends Controller
     public function showAdSubmissionForm(){
         return view('ads.post-ad');
     }
+
+    public function showAds(){
+        $ads = Ad::with('user', 'category')
+                  ->withoutGlobalScopes(['reviewed', 'suspended', 'conrirmed'])
+                 ->paginate();
+
+        return view('admin.ads.index', [
+            'ads' => $ads
+        ]);
+    }
     
     public function postAd(Request $req)
     {
@@ -125,12 +135,12 @@ class AdController extends Controller
         if(auth()->check() && auth()->user()->hasRole('admin')){
             $ad = Ad::whereSlug($slug)
                      ->with('category', 'category.ads')
-                     ->withoutGlobalScopes(['confirmed', 'reviewed', 'suspended'])
+                     ->withoutGlobalScopes(['reviewed', 'suspended', 'conrirmed'])
                      ->first();
         }else{
             $ad = Ad::whereSlug($slug)->with('category', 'category.ads')->first();
         }
-        
+
         if(! $ad){
             abort(404);
         }
@@ -243,7 +253,7 @@ class AdController extends Controller
     public function reviewAd(Request $req)
     {
         $ad = Ad::whereId($req->ad_id)
-                ->withoutGlobalScopes(['reviewed', 'confirmed', 'suspended'])
+                ->withoutGlobalScopes(['reviewed', 'suspended', 'conrirmed'])
                 ->first();
 
         $ad->reviewed_at = now();
@@ -259,7 +269,7 @@ class AdController extends Controller
     public function toggleAdSuspension($adId, $suspend)
     {
         $ad = Ad::whereId($adId)
-                ->withoutGlobalScopes(['reviewed', 'confirmed', 'suspended'])
+                ->withoutGlobalScopes(['reviewed', 'suspended', 'conrirmed'])
                 ->first();
 
         $ad->is_suspended = $suspend;
