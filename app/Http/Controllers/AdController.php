@@ -50,6 +50,13 @@ class AdController extends Controller
             return response()->json(['validation' => $validator->messages()], 500);
         }
 
+        // if slug is provided
+        if($req->filled('ad_slug')){
+            // make sure that the new slug is unique
+            if(! Slug::isAvailable(new Ad(), $req->ad_slug, $req->ad_id)){
+                return response()->json(['error' => 'There\'s already an ad with this slug'], 500);
+            }
+        }
 
         if($this->updateAd($req->all())){
             return response()->json(['updated' => true]);
@@ -105,8 +112,10 @@ class AdController extends Controller
         $ad->email = $data['email'];
         $ad->category_id = $data['category_id'];
         $ad->city_id = $data['city_id'];
-        $ad->user_id = auth()->id();
         $ad->type_id = $data['type_id'];
+        if(isset($data['ad_slug'])){
+            $ad->slug = str_slug($data['ad_slug']);
+        }
 
         return $ad->save();
     }
@@ -132,10 +141,16 @@ class AdController extends Controller
     public function showAdEditingForm($slug){
         $ad = Ad::whereSlug($slug)->with('category', 'category.ads')->first();
 
+        if(! $ad){
+            abort(404);
+        }
         // make sure that this ad belongs to the logged in user
         // and prevent editing of guest ads
-        if(! $ad->user_id || $ad->user_id != auth()->id()){
-            abort(404);
+        // Admin is an exception
+        if(! auth()->user()->hasRole('admin')){
+            if(! $ad->user_id || $ad->user_id != auth()->id()){
+                abort(404);
+            }
         }
 
         return view('ads.edit-ad', ['ad' => $ad]);

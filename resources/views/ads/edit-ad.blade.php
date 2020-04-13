@@ -21,6 +21,11 @@
                         <div class="form-group">
                             <input type="text" value="{{ $ad->title }}" required name="title" id="title" placeholder="Post title" class="form-control">
                         </div>
+                        @if(auth()->check() && auth()->user()->hasRole('admin'))
+                            <div class="form-group">
+                                <input type="text" value="{{ $ad->slug }}" required name="ad_slug" id="slug" placeholder="Post slug" class="form-control">
+                            </div>
+                        @endif
                         <div class="form-group">
                             <textarea rows="4" required name="description" id="description" placeholder="Post description"
                                 class="form-control">{{ $ad->description }}</textarea>

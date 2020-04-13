@@ -229,6 +229,7 @@ $(document).ready(function () {
         var email = $('#ad-updating-form input[name="email"]').val();
         var phoneNumber = $('#ad-updating-form input[name="phone_number"]').val();
         var adId = $('#ad-updating-form input[name="ad_id"]').val();
+        var adSlug = $('#ad-updating-form input[name="ad_slug"]').val();
 
         // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
 
@@ -247,6 +248,7 @@ $(document).ready(function () {
                 email: email,
                 phone_number: phoneNumber,
                 ad_id: adId,
+                ad_slug: adSlug,
                 _token: CSRF_TOKEN
             },
             success: function(response) {
@@ -260,7 +262,7 @@ $(document).ready(function () {
             error: function(error) {
                 $($this).html('Update')
                 $($this).prop('disabled', false)
-                console.log(error)
+                console.log(error.responseJSON)
                 if(error.responseJSON.validation){
                     showAdSubmissionFormErrors(error.responseJSON.validation);
                 }

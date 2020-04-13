@@ -40,4 +40,14 @@ class Slug
             ->get();
 
     }
+
+    public static function isAvailable($model, $slug, $id)
+    {
+        $numOfEntriesWithSameSlug = $model->where('id', '!=', $id) // dont include current entry
+                                          ->where('slug', $slug)
+                                          ->withoutGlobalScopes(['reviewed', 'suspended', 'conrirmed'])
+                                          ->count();
+
+        return $numOfEntriesWithSameSlug == 0 ? true : false;
+    }
 }

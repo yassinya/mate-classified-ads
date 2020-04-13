@@ -44190,7 +44190,8 @@ $(document).ready(function () {
     var cityId = $('#ad-updating-form select[name="city_id"] option:selected').val();
     var email = $('#ad-updating-form input[name="email"]').val();
     var phoneNumber = $('#ad-updating-form input[name="phone_number"]').val();
-    var adId = $('#ad-updating-form input[name="ad_id"]').val(); // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+    var adId = $('#ad-updating-form input[name="ad_id"]').val();
+    var adSlug = $('#ad-updating-form input[name="ad_slug"]').val(); // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
 
     $('#errors-wrapper #error').remove();
     $.ajax({
@@ -44205,6 +44206,7 @@ $(document).ready(function () {
         email: email,
         phone_number: phoneNumber,
         ad_id: adId,
+        ad_slug: adSlug,
         _token: CSRF_TOKEN
       },
       success: function success(response) {
@@ -44219,7 +44221,7 @@ $(document).ready(function () {
       error: function error(_error) {
         $($this).html('Update');
         $($this).prop('disabled', false);
-        console.log(_error);
+        console.log(_error.responseJSON);
 
         if (_error.responseJSON.validation) {
           showAdSubmissionFormErrors(_error.responseJSON.validation);
