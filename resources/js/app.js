@@ -32,6 +32,7 @@ if($('#ad-submission-form #dropzone').length){
 
             this.on('errormultiple',function(files, response){
                 $('#ad-submission-form #submit-btn').prop('disabled', false);      
+                $('#ad-submission-form #submit-btn').html('Submit')    
                 console.log(response)
                 var dropzoneFilesCopy = files.slice(0);
                 dropzone.removeAllFiles();
@@ -46,9 +47,7 @@ if($('#ad-submission-form #dropzone').length){
                if(response.validation){
                    showAdSubmissionFormErrors(response.validation)
                }else{
-                   // ad was created, but there was an internal error probably in ad creation event listeners
-                    $('form').hide();
-                    $('form').parent().html('<p class="text-center">There was an internal error</p>')
+                $('#errors-wrapper').html('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> '+response.error+'<br></div>')
                }
  
             });
@@ -287,20 +286,26 @@ $(document).ready(function () {
         var email = $('#ad-submission-form input[name="email"]').val();
         var phoneNumber = $('#ad-submission-form input[name="phone_number"]').val();
 
-        console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
+        // console.log(title, description, typeId, categoryId, cityId, email, phoneNumber);
 
         $('#errors-wrapper #error').remove()
         if(categoryId == '-'){
+            $($this).html('Submit')
+            $($this).prop('disabled', false)
             $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> Please pick a category<br></div>');
             return;
         }
 
         if(cityId == '-'){
+            $($this).html('Submit')
+            $($this).prop('disabled', false)
             $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> Please pick a city<br></div>');
             return;
         }
 
         if(typeId == '-'){
+            $($this).html('Submit')
+            $($this).prop('disabled', false)
             $('#errors-wrapper').append('<div class="alert alert-danger" id="error"><i class="fas fa-info"></i> Please specify type of ad<br></div>');
             return;
         }

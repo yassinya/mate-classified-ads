@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Models\AdConfirmation;
 
@@ -9,6 +10,8 @@ class AdConfirmationController extends Controller
 {
     public function confirmAd($token)
     {
+        $setting = Setting::find(1);
+
         $ad = AdConfirmation::whereToken($token)
                             ->with('ad')
                             ->first()
@@ -21,6 +24,11 @@ class AdConfirmationController extends Controller
         $ad->confirmed_at = now();
         $ad->save();
 
-        return view('ads.confirmation')->withMsg('Successfully confirmed, your ad is currently awaiting review.');
+        if($setting->require_ads_revision){
+            return view('ads.confirmation')->withMsg('Successfully confirmed, your ad is currently awaiting review.');
+        }else{
+            return redirect()->route('ads.show.single', ['slug' => $ad->slug])
+                             ->with(['success-msg' => 'Successfully confirmed, your ad is live']);
+        }
     }
 }

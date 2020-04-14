@@ -13,6 +13,7 @@
                 <li class="nav-item"><a href="{{ route('admin.users') }}" class="nav-link">Users</a></li>
                 <li class="nav-item"><a href="{{ route('admin.ads') }}" class="nav-link">Ads</a></li>
                 <li class="nav-item"><a href="{{ route('admin.regions') }}" class="nav-link">Regions & Cities</a></li>
+                <li class="nav-item"><a href="{{ route('admin.settings') }}" class="nav-link">Settings</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @if (auth()->check())

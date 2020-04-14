@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use App\Services\Slug;
 use App\Models\AdImage;
+use App\Models\Setting;
 use App\Events\AdCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -27,6 +28,16 @@ class AdController extends Controller
     
     public function postAd(Request $req)
     {
+
+        // check if max img upload per ad is reached
+        $setting = Setting::find(1);
+        // $ad = AdImage::whereAdId($req->ad_id)->get()->count();
+        if($req->file){
+            if($setting->ad_max_img_upload <= count($req->file)){
+                return response()->json(['error' => 'You cannot upload more than '.$setting->ad_max_img_upload.' images per ad'], 500);
+            }
+        }
+
         // validate user inputs
         $validator = $this->validator($req->all());
         // return response()->json($req->all());
@@ -43,6 +54,11 @@ class AdController extends Controller
             }
             // dispatch ad creation event
             event(new AdCreated($ad));
+            // mark it as reviewed if revision is not required
+            if($setting->require_ads_revision == 0){
+                $ad->reviewed_at = now();
+                $ad->save();
+            }
             return response()->json(['created' => true]);
         }
         
@@ -167,7 +183,12 @@ class AdController extends Controller
     }
 
     public function uploadSingleImage(Request $req){
-        // return response()->json($req->all());
+
+        $setting = Setting::find(1);
+        $adImagesTotal = AdImage::whereAdId($req->ad_id)->get()->count();
+        if($setting->ad_max_img_upload <= $adImagesTotal){
+            return \response()->json('You cannot upload more than '.$setting->ad_max_img_upload.' images per ad', 500);
+        }
         $image = create_ad_img($req->file, $req->ad_id);
         
         return response()->json([
