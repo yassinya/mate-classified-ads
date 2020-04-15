@@ -18,6 +18,11 @@
                 @endif
             </div>
             <span class="badge badge-success">{{ ucfirst($ad->type->name) }}</span> 
-            <span class="badge badge-danger">TODAY</span>
+            @if ($ad->created_at->startOfDay() == now()->startOfDay())
+                <span class="badge badge-danger">TODAY</span>
+
+            @else
+            <span><i class="fas fa-clock"></i> <span style="font-size:13px;">{{ caRelativeDate($ad->created_at) }}</span></span>
+            @endif
         </div>
 </div>
