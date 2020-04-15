@@ -66,7 +66,7 @@
         <section class="container mt-5 mb-5">
             <div class="row filters">
                 <div class="col-md-8 col-sm-12 align-self-center d-none d-md-block">
-                    <p> *Stats* Today (32) Yesterday (125) Last week (1277)</p>
+                    <p> *Stats* Today ({{ $todayAdsCount }}) Yesterday ({{ $yesterdayAdsCount }}) Last week ({{ $lastWeekAdsCount }})</p>
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <form action="">

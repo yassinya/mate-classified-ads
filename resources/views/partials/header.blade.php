@@ -57,7 +57,7 @@
         </div>
         <div class="col-md-3 trailing  d-none d-md-block">
             <span>Fastest Classifieds in Slovenia</span>
-            <span class="d-block mb-1"><strong>42,646</strong> ads, <strong>2,738</strong> images</span>
+            <span class="d-block mb-1"><strong>{{ $adsCount }}</strong> ads, <strong>{{ $imagesCount }}</strong> images</span>
             @if (isset($category))
                 <a href="{{ route('ads.create', ['cat-slug' => $category->slug]) }}" class="btn btn-sm btn-primary">
                 <i class="fas fa-plus-square"></i> Post your ad</a>
