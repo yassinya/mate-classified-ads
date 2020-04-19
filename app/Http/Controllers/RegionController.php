@@ -63,4 +63,23 @@ class RegionController extends Controller
             'region' => $region,
         ]);
     }
+
+    public function deleteRegion(Request $req){
+
+        $region =  Region::whereId($req->region_id)
+                     ->with('cities', 'cities.ads')
+                     ->first();
+        // delete its cities and unlink their ads
+        foreach ($region->cities as $city) {
+            foreach ($city->ads as $ad) {
+                $ad->city_id = null;
+                $ad->save();
+            }
+            $city->delete();
+        }
+
+        $region->delete();
+
+        return redirect()->route('admin.regions')->with(['success' => 'Region successfully deleted']);
+    }
 }
