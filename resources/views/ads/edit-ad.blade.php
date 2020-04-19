@@ -23,6 +23,7 @@
                         </div>
                         @if(auth()->check() && auth()->user()->hasRole('admin'))
                             <div class="form-group">
+                                <label for="slug">Edit slug</label>
                                 <input type="text" value="{{ $ad->slug }}" required name="ad_slug" id="slug" placeholder="Post slug" class="form-control">
                             </div>
                         @endif
