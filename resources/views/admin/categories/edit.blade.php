@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label for="category_color">Color</label>
-                            <input type="text" class="form-control" id="category_color" name="category_color"
+                            <input type="color" class="form-control" id="category_color" name="category_color"
                                 placeholder="#ffffff"
                                 required
                                 value="{{ $category->color_hex }}">
