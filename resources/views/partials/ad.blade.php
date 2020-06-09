@@ -16,7 +16,7 @@
                 @if ($ad->phone_number)
                     <span><i class="fas fa-phone"></i> {{ $ad->phone_number }}</span>          
                 @endif
-            </div>
+            </div>6
             <span class="badge badge-success">{{ ucfirst($ad->type->name) }}</span> 
             @if ($ad->created_at->startOfDay() == now()->startOfDay())
                 <span class="badge badge-danger">TODAY</span>
